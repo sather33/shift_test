@@ -19,4 +19,4 @@ composer.phar
 Thumbs.db
 .sass-cache/
 package-lock.json
-composer.lock
+# composer.lock
