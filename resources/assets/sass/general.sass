@@ -1,0 +1,69 @@
+.inline
+	display: inline
+
+.img-box 
+	width: 100%
+	margin: 15px 0
+	img
+		width: 100%
+		height: auto
+
+.ratio
+	position: relative
+	width: 100%
+	background-color: #fff
+	border: 1px solid #ddd
+	border-radius: 4px
+	overflow: hidden
+	&:before
+		content: ""
+		display: block
+	img
+		position:  absolute
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
+
+.ratio-1440x500
+	max-width: 1440px
+	&:before
+		padding-top: calc((500/1440) * 100%)
+
+
+.ratio-775x590
+	max-width: 775px
+	&:before
+		padding-top: calc((590/775) * 100%)
+
+.ratio-375x180
+	max-width: 375px
+	&:before
+		padding-top: calc((180/375) * 100%)
+
+.ratio-575x696
+	max-width: 575px
+	&:before
+		padding-top: calc((696/575) * 100%)
+
+.ratio-250x250
+	max-width: 250px
+	&:before
+		padding-top: calc((250/250) * 100%)
+
+.ratio-475x256
+	max-width: 475px
+	&:before
+		padding-top: calc((256/475) * 100%)
+
+.form-group
+	margin-button: 45px
+	a[aria-expanded="true"]::before
+		content: ''
+	a[aria-expanded="false"]::before
+		content: ''
+
+// .navbar-right 
+//     float: right !important
+//     margin-right: -15px
+

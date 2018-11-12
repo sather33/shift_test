@@ -1,0 +1,88 @@
+@import 'variables'
+
+#front_container
+    .general_form
+        width: 100%
+        min-width: 1024px
+        padding-bottom: 60px
+
+        form
+            width: 1024px
+            margin: auto
+            padding: 25px
+
+            .month_box
+                border: 5px solid $table_color
+                padding: 6px
+                // background-color: #bab684
+
+                .month_box_title
+                    div
+                        display: inline-block
+                        width: 128px
+                        height: 40px
+                        font-size: 20px
+                        line-height: 40px
+                        text-align: center
+                        margin: 2px
+                        font-family: $font-family
+
+                .per_day, .black_day
+                    display: inline-block
+                    background-color: #ffffff
+                    width: 128px
+                    height: 142px
+                    border: 1px solid $table_color
+                    margin: 2px
+                    margin-bottom: 20px
+                    text-align: center
+                    vertical-align: top
+
+                    p, select
+                        text-align: center
+                        font-family: $font-family
+                    
+                    p
+                        width: 100%
+                        margin-bottom: 0px
+
+                        &:first-child
+                            background-color: $table_color
+                            margin-bottom: 10px
+
+                    select
+                        display: inline-block
+                        width: 50px
+                        height: 25px
+                        padding-left: 15px
+                        //remove arrow
+                        -webkit-appearance: none; /*Chrome*/
+                        -moz-appearance: none; /*FF*/
+                        appearance: none;/*CSS3*/
+
+                    input[type="checkbox"]
+                        display: inline-block
+                        // margin: 8px auto
+                        zoom: 1.3
+
+                    span
+                        font-size: 12px
+                        font-family: $font-family
+
+                    .set_span
+                        margin-right: 4px
+                
+                .black_day
+                    background-color: #ffffff
+
+            .submit_box
+                text-align: center
+                padding: 20px
+
+                button
+                    width: 350px
+                    font-size: 28px
+                    border-radius: 4px
+                    font-family: $font-family
+                    height: 60px
+
