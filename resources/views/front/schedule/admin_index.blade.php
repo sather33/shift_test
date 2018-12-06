@@ -7,20 +7,20 @@
     <span class="{{ ( $i == $current_month ) ? 'current_month' : '' }}">{{ $i }}</span>
     @endfor
 </h1> --}}
-<div id="admin_content_box">
-    <div class="choose_month">
-        <a href="{{ url('/admin/schedules?choose_month=11') }}">11月</a>
-        <a href="{{ url('/admin/schedules?choose_month=12') }}">12月</a>
-    </div>
+<div class="choose_month">
+    <a href="{{ url('/admin/schedules?choose_month=11') }}">11月</a>
+    <a href="{{ url('/admin/schedules?choose_month=12') }}">12月</a>
+</div>
+<div id="content_box">
     <div class="row">
         <span style="display: none" id="anchor">{{$anchor}}</span>
-        @if ($first_weekday_number>0)
+        <!-- @if ($first_weekday_number>0)
             @for ($k = 0; $k < $first_weekday_number; $k++)
             <div class="table_box"></div>
             @endfor
-        @endif
+        @endif -->
         @foreach ($schedules as $schedule)
-        <div class="table_box">
+        <div class="col-md-6 col-xs-12 table_box">
             <table class="table" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}">
                 <thead>
                     <tr>
