@@ -1,4 +1,4 @@
-<a name="top"></a>
+<!-- <a name="top"></a>
 
 * [during dev](#during-dev)
 * [first time clone](#first-time-clone)
@@ -264,4 +264,4 @@ source ~/.bashrc
 ```
 
 ### setup valet or dlaravel
-please go to [dev_1_Setup_your_dev_machine.md](https://github.com/Fontech/laravel_document/blob/dev/laravel55%20%2B%20next/dev_1_Setup_your_dev_machine.md) `Laravel Environment Setup Guide for Mac` section
+please go to [dev_1_Setup_your_dev_machine.md](https://github.com/Fontech/laravel_document/blob/dev/laravel55%20%2B%20next/dev_1_Setup_your_dev_machine.md) `Laravel Environment Setup Guide for Mac` section -->
