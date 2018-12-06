@@ -198,9 +198,9 @@ DB_PASSWORD={your_own_mysql_password}
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=kevin-practice
-DB_USERNAME=kevin-practice
-DB_PASSWORD=kevin-practice
+DB_DATABASE=shift_test
+DB_USERNAME=shift_test
+DB_PASSWORD=shift_test
 ```
 
 ### compile asset
@@ -210,17 +210,17 @@ npm run dev
 
 ### setup host and database
 (valet ver)
-add database `kevin-practice` to your mysql server (via sequel pro or phpmyadmin or something else)
+add database `shift_test` to your mysql server (via sequel pro or phpmyadmin or something else)
 
 (dlaravel ver)
 ```
 cd ~/Sites/dlaravel
-./create --host kevin-practice
-./create --db kevin-practice
+./create --host shift_test
+./create --db shift_test
 ```
 
 ### check dev site
-- go to browsers then enter http://kevin-practice.test:8888
+- go to browsers then enter http://shift_test.test:8888
 
 [Back To Top](#top)
 
