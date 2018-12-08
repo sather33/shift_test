@@ -2,8 +2,8 @@
 <html lang="en">
 @include('front.head')
 <body>
-    @include('front.nav')
     <div id="front_container">
+        @include('front.nav')
         @yield('content')
     </div>
 </body>

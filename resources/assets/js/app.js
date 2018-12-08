@@ -53,9 +53,9 @@ $(document).ready(function(){
     }
     $('.expand_list').on('click', function(){
         $(this).find('.expand_item').toggleClass('hidden');
-        var delayInMilliseconds = 3000; //1000 = 1 second
-        var this_i = $(this);
-        delay_time(this_i, delayInMilliseconds);
+        // var delayInMilliseconds = 3000; //1000 = 1 second
+        // var this_i = $(this);
+        // delay_time(this_i, delayInMilliseconds);
     });
 
     function delay_time(this_i, delayInMilliseconds){

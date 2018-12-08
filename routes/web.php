@@ -14,9 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::get('/about', function () {
-//     return 'The About';
-// });
 
 Auth::routes();
 Route::middleware('auth')->group(function () {

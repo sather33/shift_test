@@ -2,7 +2,7 @@
 @section('content')
 <div id="content_box">
     <div class="row">
-        <div class="col-md-6 col-xs-12 table_box" id="edit_schedule_box">
+        <div class="table_box" id="edit_schedule_box">
             <table class="table" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}">
                 <thead>
                     <tr>
@@ -48,7 +48,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6 col-xs-12 table_box">
+        <div class="table_box">
             <table class="table">
                 <thead>
                     <tr>
@@ -95,7 +95,7 @@
                 <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} 小時</span>
                 @endfor
             @endif
-            <div class="month_box">
+            <div class="month_box edit_setting_box">
                 @foreach ($humans as $human)
                 <div class="per_day edit_{{ $human->name }}">
                     <p>{{ $human->name }}</p>
@@ -149,7 +149,7 @@
                     <span>&nbsp;全天&nbsp;</span>
                 </div>
             </div>
-            <input type="submit" class="btn btn-success btn-lg" value="儲存">
+            <input type="submit" value="儲存">
         </form>
     </div>
 </div>
