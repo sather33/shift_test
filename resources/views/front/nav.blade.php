@@ -1,7 +1,5 @@
 <div id="nav">
-  <div class="logo">
-
-  </div>
+  <a class="logo" href="{{ url('/schedules') }}">L</a>
   <ul class="expand_list">
     <li>選擇班表</li>
     <li class="expand_item hidden">1</li>
