@@ -79,29 +79,6 @@ class SchedulesController extends Controller
         return view('front.work.weekday', compact('weekdays'));
     }
 
-    public function setting()
-    {
-        $humans= Members::all();
-        $month = Month::find(1) ? Month::find(1)->number : null;
-        $member_total = null;
-        return view('front.work.setting', compact('humans', 'month', 'member_total'));
-    }
-
-    public function save_setting(Request $request)
-    {
-        $month = Month::find(1);
-        if($month){
-            $month->update([
-                'number' => $request->month
-            ]);
-        }else{
-            Month::create([
-                'number' => $request->month
-            ]);
-        }
-        return redirect()->back();
-    }
-
     public function edit($year, $month, $day)
     {
         $current_month = $month;

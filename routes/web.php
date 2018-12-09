@@ -25,12 +25,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedule/{yeae}/{month}/{day}/edit', 'SchedulesController@edit');
     Route::post('/schedule/{yeae}/{month}/{day}', 'SchedulesController@update');
     Route::get('/logout', 'HomeController@logout');
-    Route::get('/setting', 'SchedulesController@setting');
-    Route::post('/setting', 'SchedulesController@save_setting');
     Route::post('/schedules/check', 'SchedulesController@check');
     Route::post('/calculate_time', 'SchedulesController@calculate_time');
     Route::post('/publish_schedule', 'SchedulesController@publish_schedule');
-    Route::get('/admin/schedules', 'SchedulesController@admin_index');
+    // Route::get('/admin/schedules', 'SchedulesController@admin_index');
+    Route::post('/setting', 'OptionController@save_setting');
+    Route::get('/setting', 'OptionController@setting');
+    Route::post('/limit', 'OptionController@limit');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
