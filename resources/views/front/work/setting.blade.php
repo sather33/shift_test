@@ -1,7 +1,7 @@
 @extends('front.layout')
 @section('content')
 <div id="content_box">
-    <div id="setting_form" class="general_form">
+    <div id="setting_form" class="">
         <h1>後台</h1>
         <form class="form-horizontal" action="{{ url('/setting') }}" method="POST" enctype="multipart/form-data" role="form">
 

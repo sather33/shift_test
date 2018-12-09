@@ -13,7 +13,11 @@
         if(anchor != ''){
             var elmnt = document.getElementById(anchor).parentNode;
             elmnt.scrollIntoView(true);
-        }
+        };
+
+        $('.arrow-down').click(function(){
+            $('.mobile-hidden').toggleClass('mobile-show');
+        });
     });
 </script>
 </html>

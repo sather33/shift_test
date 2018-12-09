@@ -40,4 +40,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/give_shift/{id}/{month}', 'DatesController@give_shift');
 Route::post('/give_shift/{id}/{month}', 'DatesController@save_shift');
 Route::get('/schedules', 'SchedulesController@index');
+Route::get('/schedules/{month}', 'SchedulesController@show');
 Route::get('/schedules/week', 'SchedulesController@schedules_week');
