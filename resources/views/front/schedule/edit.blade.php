@@ -154,3 +154,54 @@
     </div>
 </div>
 @stop
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.set_10_15').change(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find('.start').val(10);
+                $(this).parent().find('.end').val(15);
+            }else{
+                $(this).parent().find('.start').val('');
+                $(this).parent().find('.end').val('');
+            }
+        });
+        $('.set_10_18').change(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find('.start').val(10);
+                $(this).parent().find('.end').val(18);
+            }else{
+                $(this).parent().find('.start').val('');
+                $(this).parent().find('.end').val('');
+            }
+        });
+        $('.set_10_22').change(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find('.start').val(10);
+                $(this).parent().find('.end').val(22);
+            }else{
+                $(this).parent().find('.start').val('');
+                $(this).parent().find('.end').val('');
+            }
+        });
+        $('.set_18_24').change(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find('.start').val(18);
+                $(this).parent().find('.end').val(24);
+            }else{
+                $(this).parent().find('.start').val('');
+                $(this).parent().find('.end').val('');
+            }
+        });
+        $('.set_10_24').change(function(){
+            if($(this).prop('checked')){
+                $(this).parent().find('.start').val(10);
+                $(this).parent().find('.end').val(24);
+            }else{
+                $(this).parent().find('.start').val('');
+                $(this).parent().find('.end').val('');
+            }
+        });
+    });
+</script>
+@stop

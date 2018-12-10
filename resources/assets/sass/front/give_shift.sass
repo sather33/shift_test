@@ -2,8 +2,9 @@
 
 #front_container
     .general_form
-        width: 100%
-        // min-width: 1024px
+        width: 1024px
+        // max-width: 1024px
+        margin-left: $nav_width
         padding-bottom: 60px
 
         form
@@ -86,3 +87,15 @@
                     font-family: $font-family
                     height: 60px
 
+@media screen and (max-width: 768px)
+    $nav_width: 20%
+
+    .general_form
+        margin-left: $nav_width
+
+@media screen and (max-width: 425px)
+    $nav_width: 100%
+
+    .general_form
+        margin-top: $mobile_content_margin_top
+        margin-left: 0
