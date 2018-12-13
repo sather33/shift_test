@@ -11,7 +11,7 @@ class OptionController extends Controller
 {
     public function setting()
     {
-        $humans= Members::all();
+        $humans= Members::actived()->get();
         $month = Month::find(1) ? Month::find(1)->number : null;
         $current_dates = date('t');
         $member_total = null;

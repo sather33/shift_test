@@ -14,7 +14,7 @@ class DatesController extends Controller
         // $month = ($month == '12') ? '1' : date('n')+1;
         // $month = '11';
         $year = ($month == '1') ? date('Y')+1 : date('Y');
-        $humans = Members::all();
+        $humans = Members::actived()->get();
         $user = Members::find($id);
         $schedule = $user->dates->where('month', $month);
         if(count($schedule)!='0'){

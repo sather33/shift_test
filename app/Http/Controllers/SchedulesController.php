@@ -16,7 +16,7 @@ class SchedulesController extends Controller
         $current_month = $request->choose_month ?: date('n');
         $year = date('Y');
         $days = date('t', strtotime($year.'-'.$current_month));
-        $humans = Members::all();
+        $humans = Members::actived()->get();
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->where('actived', true)->get();
         foreach($schedules as $schedule){
             $schedule->shift = unserialize($schedule->shift);
@@ -27,45 +27,45 @@ class SchedulesController extends Controller
         return view('front.schedule.index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor'));
     }
 
-    public function admin_index(Request $request)
-    {
-        $current_month = $request->choose_month ?: date('n');
-        $year = date('Y');
-        $days = date('t', strtotime($year.'-'.$current_month));
-        $humans = Members::all();
-        $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
-        foreach($schedules as $schedule){
-            $schedule->shift = unserialize($schedule->shift);
-        }
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
-        $month = Month::find(1)->number;
-        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year))-1;
-        $anchor = $request->anchor ?: $year.'_'.$current_month.'_'.date("j");
-        return view('front.schedule.admin_index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor', 'first_weekday_number'));
-    }
+    // public function admin_index(Request $request)
+    // {
+    //     $current_month = $request->choose_month ?: date('n');
+    //     $year = date('Y');
+    //     $days = date('t', strtotime($year.'-'.$current_month));
+    //     $humans = Members::actived()->get();
+    //     $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
+    //     foreach($schedules as $schedule){
+    //         $schedule->shift = unserialize($schedule->shift);
+    //     }
+    //     $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+    //     $month = Month::find(1)->number;
+    //     $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year))-1;
+    //     $anchor = $request->anchor ?: $year.'_'.$current_month.'_'.date("j");
+    //     return view('front.schedule.admin_index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor', 'first_weekday_number'));
+    // }
 
-    public function schedules_week()
-    {
-        $current_month = date('n');
-        $year = date('Y');
-        $days = date('t', strtotime($year.'-'.$current_month));
-        $humans = Members::all();
-        $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
-        foreach($schedules as $schedule){
-            $schedule->shift = unserialize($schedule->shift);
-        }
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
-        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year))-1;
-        $month = Month::find(1)->number;
-        return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'current_month', 'first_weekday_number'));
-    }
+    // public function schedules_week()
+    // {
+    //     $current_month = date('n');
+    //     $year = date('Y');
+    //     $days = date('t', strtotime($year.'-'.$current_month));
+    //     $humans = Members::actived()->get();
+    //     $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
+    //     foreach($schedules as $schedule){
+    //         $schedule->shift = unserialize($schedule->shift);
+    //     }
+    //     $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+    //     $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year))-1;
+    //     $month = Month::find(1)->number;
+    //     return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'current_month', 'first_weekday_number'));
+    // }
 
     public function check(Request $request)
     {
         $current_month = $request->checked_month;
         $year = $request->checked_year;
         $days = date('t', strtotime($year.'-'.$current_month));
-        $humans = Members::all();
+        $humans = Members::actived()->get();
         $dates = Dates::where('year', $year)->where('month', $current_month)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
@@ -86,7 +86,7 @@ class SchedulesController extends Controller
         $schedule->shift = unserialize($schedule->shift);
         $dates = Dates::dates($year, $current_month, $day)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
-        $humans = Members::all();
+        $humans = Members::actived()->get();
         $month = Month::find(1)->number;
 
         //cal
@@ -98,7 +98,7 @@ class SchedulesController extends Controller
     public function update($year, $month, $day, Request $request)
     {
         $data = $request->all();
-        $humans = Members::all();
+        $humans = Members::actived()->get();
         $shift = [];
         for ($i=1; $i <= count($humans) ; $i++) { 
             if($data[$i.'_started'] && $data[$i.'_ended']){
@@ -125,14 +125,14 @@ class SchedulesController extends Controller
     {
         $schedules = Schedules::where('year', $request->calculate_year)->where('month', $request->calculate_month)->get();
         $member_total = $this->getMember($schedules);
-        $humans= Members::all();
+        $humans= Members::actived()->get();
         $month = Month::find(1) ? Month::find(1)->number : null;
         return view('front.work.setting', compact('humans', 'month', 'member_total'));
     }
 
     protected function getMember($schedules)
     {
-        $members = Members::all();
+        $members = Members::actived()->get();
         $member_total = [];
         foreach ($members as $member) {
             $array = [ $member->name => 0];
