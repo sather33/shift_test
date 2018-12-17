@@ -29,20 +29,18 @@ class SchedulesController extends Controller
 
     public function admin_index(Request $request)
     {
-        // $current_month = $request->choose_month ?: date('n');
         // $year = date('Y');
-        $current_month ='1';
-        $year = '2019';
+        $schedules = Schedules::where('actived', false)->get();
+        $year = Schedules::where('actived', false)->first()->year;
         // $days = date('t', strtotime($year.'-'.$current_month));
         $humans = Members::actived()->get();
         // $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
-        $schedules = Schedules::where('actived', false)->get();
         foreach($schedules as $schedule){
             $schedule->shift = unserialize($schedule->shift);
         }
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
-        $anchor = $request->anchor ?: $year.'_'.$current_month.'_'.date("j");
+        $anchor = $request->anchor ?: null;
         return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor'));
     }
 

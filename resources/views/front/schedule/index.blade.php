@@ -1,12 +1,5 @@
 @extends('front.layout')
 @section('content')
-{{-- <h1>
-    <span>2018</span>
-    <br>
-    @for ($i = 1; $i <= '12'; $i++)
-    <span class="{{ ( $i == $current_month ) ? 'current_month' : '' }}">{{ $i }}</span>
-    @endfor
-</h1> --}}
 <div id="content_box">
     <div class="row">
         <span style="display: none" id="anchor">{{$anchor}}</span>
