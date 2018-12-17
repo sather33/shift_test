@@ -31,6 +31,8 @@ class SchedulesController extends Controller
     {
         // $current_month = $request->choose_month ?: date('n');
         // $year = date('Y');
+        $current_month ='1';
+        $year = '2019';
         // $days = date('t', strtotime($year.'-'.$current_month));
         $humans = Members::actived()->get();
         // $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
@@ -100,13 +102,21 @@ class SchedulesController extends Controller
         $data = $request->all();
         $humans = Members::actived()->get();
         $shift = [];
-        for ($i=1; $i <= count($humans) ; $i++) { 
+        foreach ($humans as $human) {
+            $i = $human->id;
             if($data[$i.'_started'] && $data[$i.'_ended']){
                 array_push($shift, [
                     Members::find($i)->name => [ $data[$i.'_started'], $data[$i.'_ended']]
                 ]);
             }
         }
+        // for ($i=1; $i <= count($humans) ; $i++) { 
+        //     if($data[$i.'_started'] && $data[$i.'_ended']){
+        //         array_push($shift, [
+        //             Members::find($i)->name => [ $data[$i.'_started'], $data[$i.'_ended']]
+        //         ]);
+        //     }
+        // }
         if($data['lack_human_started'] && $data['lack_human_ended']){
             array_push($shift, [
                 'lack_human' => [ $data['lack_human_started'], $data['lack_human_ended']]
