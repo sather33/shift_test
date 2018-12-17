@@ -55,9 +55,11 @@
                 </div>
                 @endfor
             </div>
+            @if($not_limit)
             <div class="submit_box">
                 <button type="submit" class="btn btn-success">儲存</button>
             </div>
+            @endif
         </form>
     </div>
 @stop

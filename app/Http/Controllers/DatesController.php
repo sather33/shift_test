@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dates;
 use App\Schedules;
 use App\Members;
+use App\Option;
 use Illuminate\Http\Request;
 
 class DatesController extends Controller
@@ -13,6 +14,11 @@ class DatesController extends Controller
     {
         // $month = ($month == '12') ? '1' : date('n')+1;
         // $month = '11';
+        $today = date("j");
+        $now= date("H");
+        $limit_date = Option::find(1)->limit_date;
+        $limit_hour = Option::find(1)->limit_hour;
+        $not_limit = ($limit_date<=$today && $limit_hour<=$now) ? true : false;
         $year = ($month == '1') ? date('Y')+1 : date('Y');
         $humans = Members::actived()->get();
         $user = Members::find($id);
@@ -26,7 +32,7 @@ class DatesController extends Controller
         };
         $first_weekday_number = date('w', mktime(0, 0, 0, $month, 1, $year))-1;
         $days = date('t', strtotime($year.'-'.$month));
-        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'year', 'first_weekday_number'));
+        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'year', 'first_weekday_number', 'not_limit'));
     }
 
     public function save_shift($id, $month, Request $request)
