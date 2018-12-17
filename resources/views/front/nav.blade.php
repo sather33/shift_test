@@ -18,6 +18,7 @@
   <a class="other-day-off mobile-hidden">申請額外劃休</a>
   <a class="about-shift mobile-hidden">關於排班</a>
   @if (Auth::check())
+  <a href="{{ url('/admin/schedules') }}">未發佈的1月班表</a>
   <a href="{{ url('/setting') }}" class="mobile-hidden">後台</a>
   <a href="{{ url('/logout') }}" class="log-out mobile-hidden">Log-out</a>
   @else
