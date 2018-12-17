@@ -43,7 +43,7 @@ class SchedulesController extends Controller
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
         $anchor = $request->anchor ?: $year.'_'.$current_month.'_'.date("j");
-        return view('front.schedule.index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor'));
+        return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor'));
     }
 
     // public function schedules_week()
@@ -81,7 +81,7 @@ class SchedulesController extends Controller
         return view('front.work.weekday', compact('weekdays'));
     }
 
-    public function edit($year, $month, $day)
+    public function edit($year, $month, $day, $admin)
     {
         $current_month = $month;
         $schedule = Schedules::dates($year, $current_month, $day)->first();
@@ -94,7 +94,8 @@ class SchedulesController extends Controller
         //cal
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         $member_total = $this->getMember($schedules);
-        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total'));
+        $is_admin = $admin ? true : false;
+        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'is_admin'));
     }
 
     public function update($year, $month, $day, Request $request)
@@ -127,8 +128,10 @@ class SchedulesController extends Controller
                 'shift' => serialize($shift)
             ]);
         }
-        // return redirect()->action('SchedulesController@index');
-        return redirect('/admin/schedules?anchor='.$year.'_'.$month.'_'.$day);
+        if($data['is_admin']){
+            return redirect('/admin/schedules?anchor='.$year.'_'.$month.'_'.$day);
+        }
+        return redirect('/schedules?anchor='.$year.'_'.$month.'_'.$day);
     }
 
     public function calculate_time(Request $request)

@@ -95,6 +95,9 @@
                 <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} 小時</span>
                 @endfor
             @endif
+            @if($is_admin)
+            <input type="text" hidden name='is_admin' value=true>
+            @endif
             <div class="month_box edit_setting_box">
                 @foreach ($humans as $human)
                 <div class="per_day edit_{{ $human->name }}">

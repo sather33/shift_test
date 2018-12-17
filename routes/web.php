@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/weekday', 'SchedulesController@weekday');
     Route::post('/weekday', 'SchedulesController@setWeekday');
     Route::get('/schedule/{yeae}/{month}/{day}/edit', 'SchedulesController@edit');
+    Route::get('/schedule/{yeae}/{month}/{day}/edit/{admin}', 'SchedulesController@edit');
     Route::post('/schedule/{yeae}/{month}/{day}', 'SchedulesController@update');
     Route::get('/logout', 'HomeController@logout');
     Route::post('/schedules/check', 'SchedulesController@check');
