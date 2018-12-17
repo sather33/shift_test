@@ -1,12 +1,13 @@
 <div id="nav">
   <a class="logo" href="{{ url('/schedules') }}">L</a>
   <span class="arrow-down glyphicon glyphicon-chevron-down"></span>
-  <!-- <ul class="expand_list mobile-hidden">
-    <li>選擇班表</li>
-    <li class="expand_item hidden"><a href="{{ url('/schedules/11') }}">11月</a></li>
-    <li class="expand_item hidden"><a href="{{ url('/schedules/12') }}">12月</a></li>
-    <li class="expand_item hidden">3</li>
-  </ul> -->
+  <ul class="expand_list mobile-hidden">
+    <li>查看班表</li>
+    <p hidden>{{ $last_month = date('n')-1 == '0' ? '12' : date('n')-1 }}{{ $next_month = date('n')+1 == '13' ? '1' : date('n')+1 }}</p>
+    <li class="expand_item hidden"><a href="{{ url('/schedules?choose_month='.$last_month) }}">{{$last_month}}月</a></li>
+    <li class="expand_item hidden"><a href="{{ url('/schedules?choose_month='.date('n')) }}">{{date('n')}}月</a></li>
+    <li class="expand_item hidden"><a href="{{ url('/schedules?choose_month='.$next_month) }}">{{$next_month}}月</a></li>
+  </ul>
   <ul class="expand_list mobile-hidden">
     <li>劃{{ $month }}月班表</li>
     @foreach ($humans as $human)

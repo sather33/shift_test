@@ -12,8 +12,11 @@
     $(document).ready(function(){
         var anchor = $('#anchor').text();
         if(anchor != ''){
-            var elmnt = document.getElementById(anchor).parentNode;
-            elmnt.scrollIntoView(true);
+            const has_anchor = document.getElementById(anchor);
+            if(has_anchor){
+                var elmnt = has_anchor.parentNode;
+                elmnt.scrollIntoView(true);
+            }
         };
         // for nav
         $('.expand_list').on('click', function(){
