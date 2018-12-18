@@ -14,7 +14,7 @@ class SchedulesController extends Controller
     public function index(Request $request)
     {
         $current_month = $request->choose_month ?: date('n');
-        $year = date('Y');
+        $year = (date('n') == '12' && $current_month == '1') ? date('Y')+1 : date('Y');
         $days = date('t', strtotime($year.'-'.$current_month));
         $humans = Members::actived()->get();
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->where('actived', true)->get();
