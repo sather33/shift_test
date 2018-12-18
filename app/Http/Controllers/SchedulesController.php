@@ -41,7 +41,7 @@ class SchedulesController extends Controller
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
         $anchor = $request->anchor ?: null;
-        return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor'));
+        return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'anchor'));
     }
 
     // public function schedules_week()
