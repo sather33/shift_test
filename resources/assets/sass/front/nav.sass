@@ -1,0 +1,101 @@
+#top-nav
+  display: flex
+  justify-content: center
+  flex-direction: row
+  position: relative
+  height: 60px
+  background-color: $dark_bg_color
+
+  a, h2
+    height: 60px
+    line-height: 60px
+    font-family: $font-family
+    font-weight: 600
+    font-size: 16px
+    color: #ffffff
+    text-align: center
+
+  a
+    position: absolute
+    left: 30px
+
+  h2
+    margin: 0
+    font-size: 20px
+
+#nav
+  width: $nav_width
+  position: fixed
+  height: 100vh
+  top: 0
+  text-align: left
+  background-color: $nav_color
+  box-shadow: $chloe_like
+
+  .logo
+    margin: 15% auto
+    border: 4px solid $logo_color
+    border-radius: 4px
+    display: block
+    width: 77px
+    height: 77px
+    line-height: 63px
+    text-align: center
+    font-size: 40px
+    color: $logo_color
+    font-weight: bold
+    background-color: $nav_color
+    padding-left: 0
+
+  .arrow-down
+    display: none
+
+  a, ul
+    display: inline-block
+    width: 100%
+    font-size: 16px
+    font-weight: bold
+    padding-left: 24%
+    background-color: $nav_color
+    color: $normal_background_color
+    font-family: $font-family
+
+  a
+    text-decoration: none
+    padding-top: 6px
+    padding-bottom: 6px
+
+  ul
+    list-style: none
+    margin-bottom: 0
+    padding-left: 0
+    cursor: -webkit-grab
+    cursor: grab
+
+    li
+      width: 100%
+      padding-top: 6px
+      padding-bottom: 6px
+      padding-left: 24%
+      cursor: -webkit-grab
+      cursor: grab
+      background-color: $dark_bg_color
+
+      &:first-child
+        background-color: $nav_color
+
+    .expand_item
+      float: left
+      padding-bottom: 0
+      a
+        padding-left: 0
+        background-color: $dark_bg_color
+
+  .log-out, .log-in
+    position: absolute
+    text-align: center
+    padding-left: 0
+    background-color: $dark_bg_color
+    padding-bottom: 20px
+    bottom: 0
+

@@ -2,25 +2,32 @@
 
 #front_container
     .general_form
-        width: 1024px
+        max-width: 1024px
+        width: 100%
+        margin: auto
         // max-width: 1024px
-        margin-left: $nav_width
+        // margin-left: $nav_width
         padding-bottom: 60px
 
         form
             width: 100%
             margin: auto
-            padding: 25px
+            padding: 15px
 
             .month_box
+                display: flex
+                flex-wrap: wrap
+                justify-content: space-between
                 border: 5px solid $table_color
                 padding: 6px
                 // background-color: #bab684
 
                 .month_box_title
+                    width: 100%
+
                     div
                         display: inline-block
-                        width: 128px
+                        width: 13%
                         height: 40px
                         font-size: 20px
                         line-height: 40px
@@ -31,7 +38,7 @@
                 .per_day, .black_day
                     display: inline-block
                     background-color: #ffffff
-                    width: 128px
+                    width: 13%
                     height: 142px
                     border: 1px solid $table_color
                     margin: 2px
@@ -87,15 +94,31 @@
                     font-family: $font-family
                     height: 60px
 
-@media screen and (max-width: 768px)
-    $nav_width: 20%
+    .week_box
 
-    .general_form
-        margin-left: $nav_width
+        .lack_human
+            background-color: $lack_human_color_o
 
-@media screen and (max-width: 425px)
-    $nav_width: 100%
+        .Chloe
+            background-color: $Chloe_color_o
 
-    .general_form
-        margin-top: $mobile_content_margin_top
-        margin-left: 0
+        .Kelly
+            background-color: $Kelly_color_o
+
+        .Johnny
+            background-color: $Johnny_color_o
+
+        .Carol
+            background-color: $Carol_color_o
+
+        .Nicole
+            background-color: $Nicole_color_o
+
+        .Corn
+            background-color: $Corn_color_o
+
+        .綿綿
+            background-color: $綿綿_color_o
+
+        .Green
+            background-color: $Green_color_o

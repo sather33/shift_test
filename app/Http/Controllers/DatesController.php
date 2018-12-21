@@ -14,15 +14,16 @@ class DatesController extends Controller
     {
         // $month = ($month == '12') ? '1' : date('n')+1;
         // $month = '11';
+        $current_month = $month;
         $today = date("j");
         $now= date("H");
         $limit_date = Option::find(1)->limit_date;
         $limit_hour = Option::find(1)->limit_hour;
         $not_limit = ($limit_date<=$today && $limit_hour<=$now) ? true : false;
-        $year = ($month == '1') ? date('Y')+1 : date('Y');
+        $year = ($current_month == '1') ? date('Y')+1 : date('Y');
         $humans = Members::actived()->get();
         $user = Members::find($id);
-        $schedule = $user->dates->where('month', $month);
+        $schedule = $user->dates->where('month', $current_month);
         if(count($schedule)!='0'){
             foreach ($schedule as $item) {
                 // $item->shift = [ explode('-',$item->shift)[0], explode('-',$item->shift)[1]];
@@ -30,9 +31,10 @@ class DatesController extends Controller
                 $item->end = explode('-',$item->shift)[1];
             }
         };
-        $first_weekday_number = date('w', mktime(0, 0, 0, $month, 1, $year))-1;
-        $days = date('t', strtotime($year.'-'.$month));
-        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'year', 'first_weekday_number', 'not_limit'));
+        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year))-1;
+        $days = date('t', strtotime($year.'-'.$current_month));
+        $nav_hidden = 'hidden';
+        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'current_month', 'year', 'first_weekday_number', 'not_limit', 'nav_hidden'));
     }
 
     public function save_shift($id, $month, Request $request)
