@@ -1,0 +1,45 @@
+#setting_form
+    label
+        font-size: 20px
+        margin-bottom: 0
+        vertical-align: top
+        font-family: $font-family
+
+    input[type="submit"], select
+        height: 25px
+        line-height: 25px
+        font-family: $font-family
+
+    select
+        width: 50px
+        display: inline-block
+        margin: 0 10px
+        padding-left: 0px
+
+    input[type="submit"]
+        padding-top: 0
+
+    table
+        margin-top: 50px
+
+        .head_tr, .body_tr
+            th
+                text-align: center
+                padding: 10px
+
+        .head_tr
+
+            th
+                background-color: $table_color
+                height: 30px
+
+            th:nth-child(1)
+                width: 100px
+            th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(7)
+                width: 80px
+            th:nth-child(6)
+                width: 280px
+
+        .body_tr
+            &:nth-child(odd)
+                background-color: rgba(255, 186, 132, .5)

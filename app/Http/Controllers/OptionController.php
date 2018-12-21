@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Option;
 use App\Members;
 use App\Month;
+use App\Schedules;
 
 class OptionController extends Controller
 {
@@ -16,7 +17,8 @@ class OptionController extends Controller
         $current_dates = date('t');
         $member_total = null;
         $option = Option::find(1);
-        return view('front.work.setting', compact('humans', 'month', 'member_total', 'current_dates', 'option'));
+        $schedules = Schedules::where('day', '1')->get();
+        return view('front.work.setting', compact('humans', 'month', 'member_total', 'current_dates', 'option', 'schedules'));
     }
 
     public function save_setting(Request $request)

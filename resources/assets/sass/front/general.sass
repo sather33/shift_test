@@ -1,6 +1,7 @@
 @import 'form'
 @import 'variables'
 @import 'nav'
+@import 'setting_form'
 
 body
     background-color: $normal_background_color
@@ -160,27 +161,6 @@ body
                     width: 150px
                     font-family: $font-family
 
-        #setting_form
-            label
-                font-size: 30px
-                margin-bottom: 0
-                vertical-align: top
-                font-family: $font-family
-
-            input[type="submit"], select
-                height: 42px
-                line-height: 42px
-                font-family: $font-family
-
-            select
-                width: 100px
-                display: inline-block
-                margin: 0 20px
-                padding-left: 10px
-
-            input[type="submit"]
-                padding-top: 0
-
 @media screen and (max-width: 1024px)
     #front_container
         #content_box
@@ -212,10 +192,6 @@ body
                         tr
                             .show_time, .time_title
                                 padding-top: 14px
-
-            #setting_form
-                label
-                    font-size: 20px
 
 @media screen and (max-width: 425px)
     $nav_width: 100%
@@ -281,17 +257,6 @@ body
                 
                 .table>tbody>tr>td
                     padding: 8px 4px
-
-            #setting_form
-                form
-                    margin: 10px auto
-
-                label
-                    font-size: 16px
-                    display: block
-
-                select
-                    margin: 10px 0
 
 @media screen and (max-width: 375px)
     #front_container
