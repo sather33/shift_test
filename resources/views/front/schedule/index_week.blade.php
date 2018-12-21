@@ -18,12 +18,12 @@
                 @endfor
             @endif
             @foreach($schedules as $schedale)
-            <a class="per_day" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">
+            <div class="per_day">
                 <p>{{$schedale->day}}</p>
                 @foreach ($schedale->shift as $shift)
                 <h5 class={{ array_keys($shift)[0] }}>{{ array_keys($shift)[0] }} {{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</h5>
                 @endforeach
-            </a>
+            </div>
             @endforeach
             @if ($first_weekday_number>0)
                 @for ($k = 0; $k < 7-(($first_weekday_number+$days)/7); $k++)
