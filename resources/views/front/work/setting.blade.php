@@ -119,6 +119,24 @@
             <span>時&nbsp;</span>
             <input type="submit" class="btn btn-success" value="儲存">
         </form>
+
+        <form class="form-horizontal" action="{{ url('/schedules_week') }}" method="POST" enctype="multipart/form-data" role="form">
+
+            {!! csrf_field() !!}
+
+            <label for=month">用月份查詢班表</label>
+            <select name="year" id="year" class="form-control">
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+            </select>
+            <select id="month" name="month" class="form-control">
+                <option value=""></option>
+                @for ($i = 1; $i <= '12'; $i++)
+                <option value="{{$i}}">{{$i}}</option>
+                @endfor
+            </select>
+            <input type="submit" class="btn btn-success" value="查詢">
+        </form>
     </div>
 </div>
 @stop

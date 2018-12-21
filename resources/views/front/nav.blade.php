@@ -1,4 +1,4 @@
-<div id="nav">
+<div id="nav" {{ empty($nav_hidden) ?: 'hidden'}}>
   <a class="logo" href="{{ url('/schedules') }}">L</a>
   <span class="arrow-down glyphicon glyphicon-chevron-down"></span>
   <ul class="expand_list mobile-hidden">
@@ -19,10 +19,17 @@
   <a class="other-day-off mobile-hidden">申請額外劃休</a>
   <a class="about-shift mobile-hidden">關於排班</a>
   @if (Auth::check())
-  <a href="{{ url('/admin/schedules') }}">未發佈的1月班表</a>
+  <!-- <a href="{{ url('/admin/schedules') }}">未發佈的1月班表</a> -->
   <a href="{{ url('/setting') }}" class="mobile-hidden">後台</a>
   <a href="{{ url('/logout') }}" class="log-out mobile-hidden">Log-out</a>
   @else
   <a href="{{ url('/login') }}" class="log-in mobile-hidden">Log-in</a>
   @endif
 </div>
+
+@if(!empty($nav_hidden))
+<div id="top-nav" style={{ empty($nav_hidden) ? "display:none" : ''}}>
+  <a href="/schedules">< Back Schedules</a>
+  <h2>{{$current_month}}月</h2>
+</div>
+@endif
