@@ -82,21 +82,20 @@ class SchedulesController extends Controller
         return view('front.work.weekday', compact('weekdays'));
     }
 
-    public function edit($year, $month, $day, $admin)
+    public function edit($year, $month, $day)
     {
         $current_month = $month;
         $schedule = Schedules::dates($year, $current_month, $day)->first();
         $schedule->shift = unserialize($schedule->shift);
         $dates = Dates::dates($year, $current_month, $day)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
-        $humans = Members::actived()->get();
+        $humans = Members::all();
         $month = Month::find(1)->number;
 
         //cal
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         $member_total = $this->getMember($schedules);
-        $is_admin = $admin ? true : false;
-        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'is_admin'));
+        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total'));
     }
 
     public function update($year, $month, $day, Request $request)
@@ -146,7 +145,7 @@ class SchedulesController extends Controller
 
     protected function getMember($schedules)
     {
-        $members = Members::actived()->get();
+        $members = Members::all();
         $member_total = [];
         foreach ($members as $member) {
             $array = [ $member->name => 0];

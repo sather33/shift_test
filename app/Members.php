@@ -18,4 +18,9 @@ class members extends Model
     {
         return $query->where('actived', true);
     }
+
+    public function scopeUnactived($query)
+    {
+        return $query->where('actived', false);
+    }
 }
