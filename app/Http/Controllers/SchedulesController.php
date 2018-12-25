@@ -128,9 +128,6 @@ class SchedulesController extends Controller
                 'shift' => serialize($shift)
             ]);
         }
-        if($data['is_admin']){
-            return redirect('/admin/schedules?anchor='.$year.'_'.$month.'_'.$day);
-        }
         return redirect('/schedules?anchor='.$year.'_'.$month.'_'.$day);
     }
 
