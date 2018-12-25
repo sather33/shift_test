@@ -128,7 +128,7 @@ class SchedulesController extends Controller
                 'shift' => serialize($shift)
             ]);
         }
-        return redirect('/schedules?anchor='.$year.'_'.$month.'_'.$day);
+        return redirect('/schedules?choose_month='.$month.'&anchor='.$year.'_'.$month.'_'.$day);
     }
 
     public function calculate_time(Request $request)
