@@ -19,7 +19,6 @@ class OptionController extends Controller
         $member_total = null;
         $option = Option::find(1);
         $schedules = Dates::select('year', 'month')->distinct()->get();
-        dd($schedules);
         return view('front.work.setting', compact('humans', 'month', 'member_total', 'current_dates', 'option', 'schedules'));
     }
 
