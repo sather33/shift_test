@@ -7,6 +7,7 @@ use App\Option;
 use App\Members;
 use App\Month;
 use App\Schedules;
+use App\Dates;
 
 class OptionController extends Controller
 {
@@ -17,7 +18,7 @@ class OptionController extends Controller
         $current_dates = date('t');
         $member_total = null;
         $option = Option::find(1);
-        $schedules = Schedules::where('day', '1')->get();
+        $schedules = Dates::select('month')->distinct()->get();
         return view('front.work.setting', compact('humans', 'month', 'member_total', 'current_dates', 'option', 'schedules'));
     }
 
