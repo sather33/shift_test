@@ -60,11 +60,11 @@
                     @endfor
                 @endif
             </div>
-            @if($not_limit)
+            <!-- @if($not_limit) -->
             <div class="submit_box">
                 <button type="submit" class="btn btn-success">儲存</button>
             </div>
-            @endif
+            <!-- @endif -->
         </form>
     </div>
 @stop
