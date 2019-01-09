@@ -27,6 +27,7 @@
                     <th>發布</th>
                     <th>截止時間</th>
                     <th>月曆</th>
+                    <th>匯出</th>
                 </tr>
             </thead>
             <tbody>
@@ -100,6 +101,15 @@
                             <input name="year" hidden value={{$schedule->year}}>
                             <input name="month" hidden value={{$schedule->month}}>
                             <input type="submit" class="btn btn-dark" value="查詢">
+                        </form>
+                    </th>
+                    <th>
+                        <form class="form-horizontal" action="{{ url('/export') }}" method="POST" enctype="multipart/form-data" role="form">
+                            {!! csrf_field() !!}
+
+                            <input name="year" hidden value={{$schedule->year}}>
+                            <input name="month" hidden value={{$schedule->month}}>
+                            <input type="submit" class="btn btn-dark" value="匯出">
                         </form>
                     </th>
                 </tr>

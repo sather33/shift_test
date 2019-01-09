@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/setting', 'OptionController@save_setting');
     Route::get('/setting', 'OptionController@setting');
     Route::post('/limit', 'OptionController@limit');
+    Route::post('/export', 'SchedulesController@export');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

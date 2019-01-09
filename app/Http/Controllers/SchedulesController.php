@@ -8,6 +8,8 @@ use App\Members;
 use App\Week;
 use App\Dates;
 use App\Month;
+use Excel;
+use App\Exports\ScheduleExport;
 
 class SchedulesController extends Controller
 {
@@ -176,5 +178,11 @@ class SchedulesController extends Controller
             }
         }
         return redirect()->action('SchedulesController@index');
+    }
+
+    public function export(Request $request)
+    {
+        $excel = Excel::download(new ScheduleExport($request), 'LBC_班表'.$request->year.'_'.$request->month.'.xlsx');
+        return $excel;
     }
 }
