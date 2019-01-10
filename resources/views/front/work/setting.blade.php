@@ -16,6 +16,11 @@
             </select>
             <input type="submit" class="btn btn-success" value="儲存">
         </form>
+        @if($member_total)
+            @for ($j = 0; $j < count($member_total); $j++)
+            <h3>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} 小時</h3>
+            @endfor
+        @endif
 
         <table>
             <thead>

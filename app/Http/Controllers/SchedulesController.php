@@ -135,11 +135,11 @@ class SchedulesController extends Controller
 
     public function calculate_time(Request $request)
     {
-        $schedules = Schedules::where('year', $request->calculate_year)->where('month', $request->calculate_month)->get();
-        $member_total = $this->getMember($schedules);
+        $schedule = Schedules::where('year', $request->calculate_year)->where('month', $request->calculate_month)->get();
+        $member_total = $this->getMember($schedule);
         $humans= Members::actived()->get();
         $month = Month::find(1) ? Month::find(1)->number : null;
-        return view('front.work.setting', compact('humans', 'month', 'member_total'));
+        return view('front.work.calculate', compact('humans', 'month', 'member_total'));
     }
 
     protected function getMember($schedules)
