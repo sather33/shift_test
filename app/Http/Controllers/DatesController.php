@@ -93,32 +93,16 @@ class DatesController extends Controller
     public function work($year, $month, $day)
     {
         //normal shift array, can change!
-        // $normal = ['10', '24'];
-        // $year = '2018';
-        // $month = '11';
-        // $day = '1';
-        $weekday_range = unserialize(Dates::dates($year, $month, $day)->first()->weekday->range);
+        if(!!Dates::dates($year, $month, $day)->first()) {
+            $weekday_range = unserialize(Dates::dates($year, $month, $day)->first()->weekday->range);
 
-        $pt_dates = $this->buildPtDates($year, $month, $day);
-        $ft_date = $this->buildFtDate($year, $month, $day);
-        // $is_matched = $this->matchToNormal($pt_dates, $ft_date, $normal);
-        
-        // if($is_matched){
-            // if(count($weekday_range)=='1'){
-                //only first conditino!!!!!!!
-                $result = $this->simpleLogic($pt_dates, $ft_date, $weekday_range[0]);
-                $result ? $this->completeShift($result, 'create', $year, $month, $day) : '';
-            // }
-        // }
-        // dd('bad');
-        // dd(array_udiff($result, $normal));
-        //five people
-        //chole = [10~18]
-        //green = [10~18]
-        //johnny = [10~18]
-        //tee = [15~24]
-        //min = [18~24]
-        // $return = $weekday_range[0];
+            $pt_dates = $this->buildPtDates($year, $month, $day);
+            $ft_date = $this->buildFtDate($year, $month, $day);
+
+            //only first condition!!!!!!!
+            $result = $this->simpleLogic($pt_dates, $ft_date, $weekday_range[0]);
+            $result ? $this->completeShift($result, 'create', $year, $month, $day) : '';
+        }
     }
     
     protected function buildPtDates($year, $month, $day)
