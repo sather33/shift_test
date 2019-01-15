@@ -97,8 +97,7 @@ class SchedulesController extends Controller
         //cal
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         $member_total = $this->getMember($schedules);
-        return redirect()->back();
-        // return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total'));
+        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total'));
     }
 
     public function update($year, $month, $day, Request $request)
@@ -131,7 +130,8 @@ class SchedulesController extends Controller
                 'shift' => serialize($shift)
             ]);
         }
-        return redirect('/schedules?choose_month='.$month.'&anchor='.$year.'_'.$month.'_'.$day);
+        return redirect()->back();
+        // return redirect('/schedules?choose_month='.$month.'&anchor='.$year.'_'.$month.'_'.$day);
     }
 
     public function calculate_time(Request $request)

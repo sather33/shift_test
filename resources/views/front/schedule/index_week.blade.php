@@ -17,10 +17,12 @@
                 <div class="black_day"></div>
                 @endfor
             @endif
-            @foreach($schedules as $schedale)
+            @foreach($schedules as $schedule)
             <div class="per_day">
-                <p>{{$schedale->day}}</p>
-                @foreach ($schedale->shift as $shift)
+                <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit/admin') }}">
+                    <p>{{$schedule->day}}</p>
+                </a>
+                @foreach ($schedule->shift as $shift)
                 <h5 class={{ array_keys($shift)[0] }}>{{ array_keys($shift)[0] }} {{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</h5>
                 @endforeach
             </div>
