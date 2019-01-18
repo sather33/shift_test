@@ -130,8 +130,12 @@ class SchedulesController extends Controller
                 'shift' => serialize($shift)
             ]);
         }
-        return redirect()->back();
-        // return redirect('/schedules?choose_month='.$month.'&anchor='.$year.'_'.$month.'_'.$day);
+        // return redirect()->back();
+        if(Schedules::dates($year, $month, $day)->first()->actived === 0){
+            return redirect('/admin/schedules?choose_month='.$month.'&anchor='.$year.'_'.$month.'_'.$day);
+        }else{
+            return redirect('/schedules?choose_month='.$month.'&anchor='.$year.'_'.$month.'_'.$day);
+        }
     }
 
     public function calculate_time(Request $request)
