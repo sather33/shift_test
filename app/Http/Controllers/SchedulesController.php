@@ -34,7 +34,7 @@ class SchedulesController extends Controller
     public function admin_index(Request $request)
     {
         $schedules = Schedules::where('actived', false)->orderBy('day', 'ASC')->get();
-        $year = Schedules::where('actived', false)->first()->year;
+        // $year = Schedules::where('actived', false)->first()->year;
         $humans = Members::actived()->get();
         foreach($schedules as $schedule){
             if($schedule->shift !== 'off'){
@@ -89,7 +89,9 @@ class SchedulesController extends Controller
     {
         $current_month = $month;
         $schedule = Schedules::dates($year, $current_month, $day)->first();
-        $schedule->shift = unserialize($schedule->shift);
+        if($schedule->shift !== 'off'){
+            $schedule->shift = unserialize($schedule->shift);
+        }
         $dates = Dates::dates($year, $current_month, $day)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $humans = Members::all();
@@ -114,13 +116,6 @@ class SchedulesController extends Controller
                 ]);
             }
         }
-        // for ($i=1; $i <= count($humans) ; $i++) { 
-        //     if($data[$i.'_started'] && $data[$i.'_ended']){
-        //         array_push($shift, [
-        //             Members::find($i)->name => [ $data[$i.'_started'], $data[$i.'_ended']]
-        //         ]);
-        //     }
-        // }
         if($data['lack_human_started'] && $data['lack_human_ended']){
             array_push($shift, [
                 'lack_human' => [ $data['lack_human_started'], $data['lack_human_ended']]
@@ -157,13 +152,15 @@ class SchedulesController extends Controller
             $member_total = array_merge($member_total, $array);
         }
         foreach($schedules as $schedule){
-            $shift = unserialize($schedule->shift);
-            if($shift){
-                foreach ($shift as $item) {
-                    $name = array_keys($item)[0];
-                    if($name != 'lack_human'){
-                        $number = $item[$name][1] - $item[$name][0];
-                        $member_total[$name] = $member_total[$name] + $number;
+            if($schedule->shift !== 'off'){
+                $shift = unserialize($schedule->shift);
+                if($shift){
+                    foreach ($shift as $item) {
+                        $name = array_keys($item)[0];
+                        if($name != 'lack_human'){
+                            $number = $item[$name][1] - $item[$name][0];
+                            $member_total[$name] = $member_total[$name] + $number;
+                        }
                     }
                 }
             }

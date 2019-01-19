@@ -21,6 +21,6 @@ class Dates extends Model
 
     public function scopeDates($query, $year, $month, $day)
     {
-        return $query->where('year', $year)->where('month', $month)->where('day', $day);
+        return $query->where('year', $year)->where('month', $month)->where('day', $day)->orderBy('day', 'ASC');
     }
 }
