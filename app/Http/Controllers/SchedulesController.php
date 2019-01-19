@@ -19,9 +19,11 @@ class SchedulesController extends Controller
         $year = (date('n') == '12' && $current_month == '1') ? date('Y')+1 : date('Y');
         $days = date('t', strtotime($year.'-'.$current_month));
         $humans = Members::actived()->get();
-        $schedules = Schedules::where('year', $year)->where('month', $current_month)->where('actived', true)->get();
+        $schedules = Schedules::where('year', $year)->where('month', $current_month)->where('actived', true)->orderBy('day', 'ASC')->get();
         foreach($schedules as $schedule){
-            $schedule->shift = unserialize($schedule->shift);
+            if ($schedule->shift !== 'off') {
+                $schedule->shift = unserialize($schedule->shift);
+            }
         }
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
@@ -31,14 +33,13 @@ class SchedulesController extends Controller
 
     public function admin_index(Request $request)
     {
-        // $year = date('Y');
-        $schedules = Schedules::where('actived', false)->get();
+        $schedules = Schedules::where('actived', false)->orderBy('day', 'ASC')->get();
         $year = Schedules::where('actived', false)->first()->year;
-        // $days = date('t', strtotime($year.'-'.$current_month));
         $humans = Members::actived()->get();
-        // $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         foreach($schedules as $schedule){
-            $schedule->shift = unserialize($schedule->shift);
+            if($schedule->shift !== 'off'){
+                $schedule->shift = unserialize($schedule->shift);
+            }
         }
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;

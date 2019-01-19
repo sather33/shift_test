@@ -40,19 +40,24 @@
             var lucky_time = table[i].getElementsByClassName('lucky_time');
             var edited = $('#input_edit');
             var is_edited = edited.children().length;
+
             for(j=0; j<lucky.length; ++j){
                 var lucky_name = lucky[j].textContent;
-                var shift = lucky_time[j].textContent.split('-');
-                var set_array = table[i].getElementsByClassName(lucky_name)[0];
-                for(k=shift[0]; k<shift[1]; ++k){
-                    if(set_array){
-                        set_array.getElementsByClassName(k)[0].classList.add('active');
+                if(lucky_name === 'off') {
+                    table[i].parentNode.getElementsByClassName('day-off')[0].setAttribute('class', 'day-off');
+                } else {
+                    var shift = lucky_time[j].textContent.split('-');
+                    var set_array = table[i].getElementsByClassName(lucky_name)[0];
+                    for(k=shift[0]; k<shift[1]; ++k){
+                        if(set_array){
+                            set_array.getElementsByClassName(k)[0].classList.add('active');
+                        }
                     }
-                }
-                if((is_edited != '0') && (i == '0')){
-                    var edit_lucky = edited[0].getElementsByClassName(`edit_${lucky_name}`)[0];
-                    edit_lucky.getElementsByClassName('start')[0].value = shift[0];
-                    edit_lucky.getElementsByClassName('end')[0].value = shift[1];
+                    if((is_edited != '0') && (i == '0')){
+                        var edit_lucky = edited[0].getElementsByClassName(`edit_${lucky_name}`)[0];
+                        edit_lucky.getElementsByClassName('start')[0].value = shift[0];
+                        edit_lucky.getElementsByClassName('end')[0].value = shift[1];
+                    }
                 }
             }
         }

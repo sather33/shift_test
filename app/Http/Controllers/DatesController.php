@@ -102,6 +102,15 @@ class DatesController extends Controller
             //only first condition!!!!!!!
             $result = $this->simpleLogic($pt_dates, $ft_date, $weekday_range[0]);
             $result ? $this->completeShift($result, 'create', $year, $month, $day) : '';
+        }else{
+            Schedules::create([
+                'year' => $year,
+                'month' => $month,
+                'day' => $day,
+                'week_id' => date('w', mktime(0, 0, 0, $month, $day, $year)),
+                'actived' => false,
+                'shift' =>  'off'
+            ]);
         }
     }
     
@@ -137,43 +146,14 @@ class DatesController extends Controller
 
     }
 
-    // protected function matchToNormal($pt_dates, $ft_date, $normal)
-    // {
-    //     $result = [];
-    //     if($ft_date){
-    //         $result = [ $ft_date['duration'][0], $ft_date['duration'][1]];
-    //         for( $i= 0; $i < count($pt_dates); ++$i){
-    //             $result = [
-    //                 '0' => ($pt_dates[$i]['duration'][0]<$result[0]) ? $pt_dates[$i]['duration'][0] : $result[0],
-    //                 '1' => ($pt_dates[$i]['duration'][1]>$result[1]) ? $pt_dates[$i]['duration'][1] : $result[1],
-    //             ];
-    //         }
-    //     }else{
-    //         $result = [ $pt_dates['0']['duration'][0], $pt_dates['0']['duration'][1]];
-    //         for( $i= 1; $i < count($pt_dates); ++$i){
-    //             $result = [
-    //                 '0' => ($pt_dates[$i]['duration'][0]<$result[0]) ? $pt_dates[$i]['duration'][0] : $result[0],
-    //                 '1' => ($pt_dates[$i]['duration'][1]>$result[1]) ? $pt_dates[$i]['duration'][1] : $result[1],
-    //             ];
-    //         }
-    //     }
-    //     return $result == $normal;
-    // }
-
     protected function simpleLogic($pt_dates, $ft_date, $normal)
     {
-        // normal = [ ['10', '18'], ['18', '24'] ]
-        // default $ft_date == ['10', '18']
         $shift = [];
         if ($ft_date) {
             if ($ft_date['duration'] == ['10', '18']) {
                 array_push($shift, [
                     $ft_date['name'] => $ft_date['duration']
                 ]);
-                // $normal = ['18', '24'];
-                //choose a people for night shift
-                // $suggest = $this->choosePt($pt_dates, $normal);
-                // $shift = $this->inputSuggest($shift, $suggest, $normal);
                 if (($key = array_search(['10', '18'], $normal)) !== false) {
                     unset($normal[$key]);
                 }
@@ -185,13 +165,6 @@ class DatesController extends Controller
             $shift = $result[0];
             $pt_dates = $result[1];
         }
-            // $normal_1 = ['10', '18'];
-            // $normal_2 = ['18', '24'];
-
-            // $suggest_1 = $this->choosePt($pt_dates, $normal_1);
-            // $suggest_2 = $this->choosePt($pt_dates, $normal_2);
-            // $shift = $this->inputSuggest($shift, $suggest_1, $normal_1);
-            // $shift = $this->inputSuggest($shift, $suggest_2, $normal_2);
         return $shift;
     }
 
