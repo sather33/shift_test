@@ -1,89 +1,87 @@
 @extends('front.layout')
 @section('content')
 <div id="content_box">
-    <div class="row">
-        <div class="table_box" id="edit_schedule_box">
-            <table class="table" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}">
-                <thead>
-                    <tr>
-                        <th class="name">
-                            {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
-                        </th>
-                        <th class="time">
-                            <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
-                            @foreach ($schedule->shift as $shift)
-                            <span class="lucky">{{ array_keys($shift)[0] }}</span>
-                            <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
-                            @endforeach
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td class="time_title">
-                            @for ($i = 10; $i < 24; $i++)
-                            <div class="{{ $i }}">{{ $i }}</div>
-                            @endfor
-                        </td>
-                    </tr>
-                    @foreach ($humans as $human)
-                    <tr>
-                        <td>{{ $human->name }}</td>
-                        <td class="{{ $human->name }} show_time">
-                            @for ($i = 10; $i < 24; $i++)
-                            <div class="{{ $i }}"></div>
-                            @endfor
-                        </td>
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <td>缺人</td>
-                        <td class="lack_human show_time">
-                            @for ($i = 10; $i < 24; $i++)
-                            <div class="{{ $i }}"></div>
-                            @endfor
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="table_box">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th class="name"></th>
-                        <th class="time">
-                            <strong>能上班時段</strong>
-                            @foreach ($dates as $date)
-                            <span class="lucky">{{ $date->member->name }}</span>
-                            <span class="lucky_time">{{ $date->shift }}</span>
-                            @endforeach
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Name</td>
-                        <td class="time_title">
-                            @for ($i = 10; $i < 24; $i++)
-                            <div class="{{ $i }}">{{ $i }}</div>
-                            @endfor
-                        </td>
-                    </tr>
-                    @foreach ($humans as $human)
-                    <tr>
-                        <td>{{ $human->name }}</td>
-                        <td class="{{ $human->name }} show_time">
-                            @for ($i = 10; $i < 24; $i++)
-                            <div class="{{ $i }}"></div>
-                            @endfor
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+    <div class="table_box" id="edit_schedule_box">
+        <table class="table" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}">
+            <thead>
+                <tr>
+                    <th class="name">
+                        {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
+                    </th>
+                    <th class="time">
+                        <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
+                        @foreach ($schedule->shift as $shift)
+                        <span class="lucky">{{ array_keys($shift)[0] }}</span>
+                        <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
+                        @endforeach
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td class="time_title">
+                        @for ($i = 10; $i < 24; $i++)
+                        <div class="{{ $i }}">{{ $i }}</div>
+                        @endfor
+                    </td>
+                </tr>
+                @foreach ($humans as $human)
+                <tr>
+                    <td>{{ $human->name }}</td>
+                    <td class="{{ $human->name }} show_time">
+                        @for ($i = 10; $i < 24; $i++)
+                        <div class="{{ $i }}"></div>
+                        @endfor
+                    </td>
+                </tr>
+                @endforeach
+                <tr>
+                    <td>缺人</td>
+                    <td class="lack_human show_time">
+                        @for ($i = 10; $i < 24; $i++)
+                        <div class="{{ $i }}"></div>
+                        @endfor
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table_box">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="name"></th>
+                    <th class="time">
+                        <strong>能上班時段</strong>
+                        @foreach ($dates as $date)
+                        <span class="lucky">{{ $date->member->name }}</span>
+                        <span class="lucky_time">{{ $date->shift }}</span>
+                        @endforeach
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name</td>
+                    <td class="time_title">
+                        @for ($i = 10; $i < 24; $i++)
+                        <div class="{{ $i }}">{{ $i }}</div>
+                        @endfor
+                    </td>
+                </tr>
+                @foreach ($humans as $human)
+                <tr>
+                    <td>{{ $human->name }}</td>
+                    <td class="{{ $human->name }} show_time">
+                        @for ($i = 10; $i < 24; $i++)
+                        <div class="{{ $i }}"></div>
+                        @endfor
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
     <div id="input_edit" class="general_form">
         <form class="form-horizontal" action="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day) }}" method="POST" enctype="multipart/form-data" role="form">
@@ -91,9 +89,11 @@
             {!! csrf_field() !!}
 
             @if($member_total)
-                @for ($j = 0; $j < count($member_total); $j++)
-                <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} 小時</span>
-                @endfor
+                <div class="check_total">
+                    @for ($j = 0; $j < count($member_total); $j++)
+                    <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} // </span>
+                    @endfor
+                </div>
             @endif
             <div class="month_box edit_setting_box">
                 @foreach ($humans as $human)
