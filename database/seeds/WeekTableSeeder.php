@@ -13,197 +13,29 @@ class WeekTableSeeder extends Seeder
      */
     public function run()
     {
-        Week::create([
-            'name' => 'Monday',
+        $weekName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Firday', 'Saturday', 'Sunday'];
+        foreach ($weekName as $day) {
+          Week::create([
+            'shop_id' => 'Y',
+            'name' => $day,
             'range' => serialize([
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-              ]) 
-        ]);
+              [
+                [10, 24]
+              ],
+            ])
+          ]);
+        }
+        foreach ($weekName as $day) {
+          Week::create([
+            'shop_id' => 'A',
+            'name' => $day,
+            'range' => serialize([
+              [
+                [10.5, 24]
+              ],
+            ])
+          ]);
+        }
 
-        Week::create([
-            'name' => 'Tuesday',
-            'range' => serialize([
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-              ])
-        ]);
-        Week::create([
-            'name' => 'Wednesday',
-            'range' => serialize([
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-                [
-                  [
-                    "10",
-                    "14",
-                  ],
-                  [
-                    "14",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-                [
-                  [
-                    "10",
-                    "15",
-                  ],
-                  [
-                    "15",
-                    "19",
-                  ],
-                  [
-                    "19",
-                    "24",
-                  ],
-                ],
-              ])
-        ]);
-        Week::create([
-            'name' => 'Thursday',
-            'range' => serialize([
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-              ])
-        ]);
-        Week::create([
-            'name' => 'Firday',
-            'range' => serialize([
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "22",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-                [
-                  [
-                    "10",
-                    "15",
-                  ],
-                  [
-                    "12",
-                    "20",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-              ])
-        ]);
-        Week::create([
-            'name' => 'Saturday',
-            'range' => serialize([
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                  [
-                    "11",
-                    "15",
-                  ],
-                  [
-                    "18",
-                    "22",
-                  ],
-                ],
-                [
-                  [
-                    "10",
-                    "15",
-                  ],
-                  [
-                    "12",
-                    "20",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-              ])
-        ]);
-        Week::create([
-            'name' => 'Sunday',
-            'range' => serialize([
-                [
-                  [
-                    "10",
-                    "15",
-                  ],
-                  [
-                    "12",
-                    "20",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                ],
-                [
-                  [
-                    "10",
-                    "18",
-                  ],
-                  [
-                    "18",
-                    "24",
-                  ],
-                  [
-                    "11",
-                    "15",
-                  ],
-                ],
-              ])
-        ]);
     }
 }
