@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         // $this->call(CreateMonthTable::class);
-        $this->call(MembersTableSeeder::class);
-        $this->call(WeekTableSeeder::class);
+        // $this->call(MembersTableSeeder::class);
+        // $this->call(WeekTableSeeder::class);
+        $this->call(DefaultShopIdSeeder::class);
+        // dd('test');
     }
 }
