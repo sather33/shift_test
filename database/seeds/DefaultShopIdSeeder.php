@@ -14,7 +14,7 @@ class DefaultShopIdSeeder extends Seeder
     {
         $schedules = Schedules::where('shop_id', '')->get();
         foreach ($schedules as $schedule) {
-            $schedule->shop_id = 'L';
+            $schedule->shop_id = 'Y';
             $schedule->save();
         }
     }

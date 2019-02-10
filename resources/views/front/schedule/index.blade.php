@@ -1,6 +1,6 @@
 @extends('front.layout')
 @section('content')
-<div id="content_box" class={{ $shopId == 'L' ? "table_shopL" : "table_shopA" }}>
+<div id="content_box" class={{ $shopId == 'Y' ? "table_shopY" : "table_shopA" }}>
     <div class="row">
         <span style="display: none" id="anchor">{{$anchor}}</span>
         @foreach ($schedules as $schedule)
