@@ -1,12 +1,12 @@
 <div id="nav" {{ empty($nav_hidden) ?: 'hidden'}} class={{ $shopId === 'L' ? 'shopL' : 'shopA' }}>
-  <a class="logo" href="{{ url('/schedules') }}">{{$shopId}}</a>
+  <a class="logo" href="{{ $shopId === 'L' ? url('/A/schedules') : url('/L/schedules') }}">{{$shopId}}</a>
   <span class="arrow-down glyphicon glyphicon-chevron-down"></span>
   <ul class="expand_list mobile-hidden">
     <li>查看班表</li>
     <p hidden>{{ $last_month = date('n')-1 == '0' ? '12' : date('n')-1 }}{{ $next_month = date('n')+1 == '13' ? '1' : date('n')+1 }}</p>
-    <li class="expand_item hidden"><a href="{{ url('/schedules?choose_month='.$last_month) }}">{{$last_month}}月</a></li>
-    <li class="expand_item hidden"><a href="{{ url('/schedules?choose_month='.date('n')) }}">{{date('n')}}月</a></li>
-    <li class="expand_item hidden"><a href="{{ url('/schedules?choose_month='.$next_month) }}">{{$next_month}}月</a></li>
+    <li class="expand_item hidden"><a href="{{ url('/'.$shopId.'/schedules?choose_month='.$last_month) }}">{{$last_month}}月</a></li>
+    <li class="expand_item hidden"><a href="{{ url('/'.$shopId.'/schedules?choose_month='.date('n')) }}">{{date('n')}}月</a></li>
+    <li class="expand_item hidden"><a href="{{ url('/'.$shopId.'/schedules?choose_month='.$next_month) }}">{{$next_month}}月</a></li>
   </ul>
   <ul class="expand_list mobile-hidden">
     <li>劃{{ $month }}月班表</li>
@@ -29,7 +29,7 @@
 
 @if(!empty($nav_hidden))
 <div id="top-nav" style={{ empty($nav_hidden) ? "display:none" : ''}} class={{ $shopId === 'L' ? 'shopL' : 'shopA' }}>
-  <a href="/schedules">< Back Schedules</a>
+  <a href="{{ $shopId === 'L' ? url('/L/schedules') : url('/A/schedules') }}">< Back Schedules</a>
   <h2>{{$current_month}}月</h2>
 </div>
 @endif
