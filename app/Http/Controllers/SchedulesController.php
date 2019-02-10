@@ -19,7 +19,11 @@ class SchedulesController extends Controller
         $year = (date('n') == '12' && $current_month == '1') ? date('Y')+1 : date('Y');
         $days = date('t', strtotime($year.'-'.$current_month));
         $humans = Members::actived()->get();
-        $schedules = Schedules::where('year', $year)->where('month', $current_month)->where('actived', true)->orderBy('day', 'ASC')->get();
+        $schedules = Schedules::where('shop_id', $shopId)
+            ->where('year', $year)
+            ->where('month', $current_month)
+            ->where('actived', true)
+            ->orderBy('day', 'ASC')->get();
         foreach($schedules as $schedule){
             if ($schedule->shift !== 'off') {
                 $schedule->shift = unserialize($schedule->shift);
