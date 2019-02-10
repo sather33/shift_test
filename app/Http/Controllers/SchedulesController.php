@@ -13,7 +13,7 @@ use App\Exports\ScheduleExport;
 
 class SchedulesController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, $shopId)
     {
         $current_month = $request->choose_month ?: date('n');
         $year = (date('n') == '12' && $current_month == '1') ? date('Y')+1 : date('Y');
@@ -28,7 +28,7 @@ class SchedulesController extends Controller
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
         $anchor = $request->anchor ?: $year.'_'.$current_month.'_'.date("j");
-        return view('front.schedule.index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor'));
+        return view('front.schedule.index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor', 'shopId'));
     }
 
     public function admin_index(Request $request)

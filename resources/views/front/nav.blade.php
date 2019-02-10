@@ -1,5 +1,5 @@
-<div id="nav" {{ empty($nav_hidden) ?: 'hidden'}}>
-  <a class="logo" href="{{ url('/schedules') }}">L</a>
+<div id="nav" {{ empty($nav_hidden) ?: 'hidden'}} class={{ $shopId === 'L' ? 'shopL' : 'shopA' }}>
+  <a class="logo" href="{{ url('/schedules') }}">{{$shopId}}</a>
   <span class="arrow-down glyphicon glyphicon-chevron-down"></span>
   <ul class="expand_list mobile-hidden">
     <li>查看班表</li>
@@ -28,7 +28,7 @@
 </div>
 
 @if(!empty($nav_hidden))
-<div id="top-nav" style={{ empty($nav_hidden) ? "display:none" : ''}}>
+<div id="top-nav" style={{ empty($nav_hidden) ? "display:none" : ''}} class={{ $shopId === 'L' ? 'shopL' : 'shopA' }}>
   <a href="/schedules">< Back Schedules</a>
   <h2>{{$current_month}}月</h2>
 </div>
