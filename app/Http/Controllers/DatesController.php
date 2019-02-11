@@ -16,23 +16,23 @@ class DatesController extends Controller
         // $month = '11';
         $current_month = $month;
         $today = date("j");
-        $now= date("H");
+        $now = date("H");
         $limit_date = Option::find(1)->limit_date;
         $limit_hour = Option::find(1)->limit_hour;
-        $not_limit = ($limit_date<=$today && $limit_hour<=$now) ? true : false;
-        $year = ($current_month == '1') ? date('Y')+1 : date('Y');
+        $not_limit = ($limit_date <= $today && $limit_hour <= $now) ? true : false;
+        $year = ($current_month == '1') ? date('Y') + 1 : date('Y');
         $humans = Members::actived()->get();
         $user = Members::find($id);
         $schedule = $user->dates->where('month', $current_month);
-        if(count($schedule)!='0'){
+        if (count($schedule) != '0') {
             foreach ($schedule as $item) {
                 // $item->shift = [ explode('-',$item->shift)[0], explode('-',$item->shift)[1]];
-                $item->start = explode('-',$item->shift)[0];
-                $item->end = explode('-',$item->shift)[1];
+                $item->start = explode('-', $item->shift)[0];
+                $item->end = explode('-', $item->shift)[1];
             }
         };
-        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year))-1;
-        $days = date('t', strtotime($year.'-'.$current_month));
+        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year)) - 1;
+        $days = date('t', strtotime($year . '-' . $current_month));
         $nav_hidden = 'hidden';
         return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'current_month', 'year', 'first_weekday_number', 'not_limit', 'nav_hidden'));
     }
@@ -44,21 +44,21 @@ class DatesController extends Controller
         $month = $data['month'];
         $days = $data['days'];
         //date('w', mktime(0, 0, 0, $month, 3, $year)) -> 星期天是'0'
-        for ($i=1; $i <= $days; $i++) { 
+        for ($i = 1; $i <= $days; $i++) {
             $date = Dates::where('member_id', $id)->dates($year, $month, $i)->first();
-            if($data[$i.'_started'] || $data[$i.'_ended']){
+            if ($data[$i . '_started'] || $data[$i . '_ended']) {
                 //if has data
-                $input_shift = $data[$i.'_started'].'-'.$data[$i.'_ended'];
+                $input_shift = $data[$i . '_started'] . '-' . $data[$i . '_ended'];
                 $weekday = date('w', mktime(0, 0, 0, $month, $i, $year));
-                ( $weekday == '0' ) ? $weekday='7' : ''; //transfer to 7
-                if($date){
+                ($weekday == '0') ? $weekday = '7' : ''; //transfer to 7
+                if ($date) {
                     //update
-                    if($date->shift != $input_shift){
+                    if ($date->shift != $input_shift) {
                         $date->update([
                             'shift' => $input_shift
                         ]);
                     }
-                }else{
+                } else {
                     //create
                     Dates::create([
                         'member_id' => $id,
@@ -69,7 +69,7 @@ class DatesController extends Controller
                         'week_id' => $weekday
                     ]);
                 }
-            }elseif($date){
+            } elseif ($date) {
                 $date->delete();
             }
         }
@@ -80,20 +80,42 @@ class DatesController extends Controller
     {
         $month = $request->shift_month;
         $year = $request->shift_year;
-        $days = date('t', strtotime($year.'-'.$month));
-        for ($i=1; $i <= $days; $i++) {
-            if(!Schedules::dates($year, $month, $i)->first()){
-                $this->work($year, $month, $i);
+        $days = date('t', strtotime($year . '-' . $month));
+        for ($i = 1; $i <= $days; $i++) {
+            if (!Schedules::dates($year, $month, $i)->first()) {
+                $this->work_default($year, $month, $i);
             }
         }
         return redirect()->action('SchedulesController@admin_index');
         // return view('front.work.index');
     }
 
+    public function work_default($year, $month, $day)
+    {
+        Schedules::create([
+            'shop_id' => 'Y',
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'week_id' => date('w', mktime(0, 0, 0, $month, $day, $year)),
+            'actived' => false,
+            'shift' => ''
+        ]);
+        Schedules::create([
+            'shop_id' => 'A',
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'week_id' => date('w', mktime(0, 0, 0, $month, $day, $year)),
+            'actived' => false,
+            'shift' => ''
+        ]);
+    }
+
     public function work($year, $month, $day)
     {
         //normal shift array, can change!
-        if(!!Dates::dates($year, $month, $day)->first()) {
+        if (!!Dates::dates($year, $month, $day)->first()) {
             $weekday_range = unserialize(Dates::dates($year, $month, $day)->first()->weekday->range);
 
             $pt_dates = $this->buildPtDates($year, $month, $day);
@@ -102,18 +124,18 @@ class DatesController extends Controller
             //only first condition!!!!!!!
             $result = $this->simpleLogic($pt_dates, $ft_date, $weekday_range[0]);
             $result ? $this->completeShift($result, 'create', $year, $month, $day) : '';
-        }else{
+        } else {
             Schedules::create([
                 'year' => $year,
                 'month' => $month,
                 'day' => $day,
                 'week_id' => date('w', mktime(0, 0, 0, $month, $day, $year)),
                 'actived' => false,
-                'shift' =>  'off'
+                'shift' => 'off'
             ]);
         }
     }
-    
+
     protected function buildPtDates($year, $month, $day)
     {
         $dates = Dates::dates($year, $month, $day)->where('member_id', 'not like', '1')->get();
@@ -123,7 +145,7 @@ class DatesController extends Controller
             $duration = explode('-', $date->shift);
             $pt_dates[$i] = [
                 'name' => $date->member()->first()->name,
-                'duration' => [ $duration[0], $duration[1]]
+                'duration' => [$duration[0], $duration[1]]
             ];
             ++$i;
         }
@@ -133,14 +155,14 @@ class DatesController extends Controller
     protected function buildFtDate($year, $month, $day)
     {
         $date = Dates::dates($year, $month, $day)->where('member_id', 'like', '1')->first();
-        if($date){
+        if ($date) {
             $duration = explode('-', $date->shift);
             $ft_date = [
                 'name' => $date->member()->first()->name,
-                'duration' => [ $duration[0], $duration[1]]
+                'duration' => [$duration[0], $duration[1]]
             ];
             return $ft_date;
-        }else{
+        } else {
             return null;
         }
 
@@ -172,30 +194,30 @@ class DatesController extends Controller
     {
         //choose a people for night shift
         $choose = [];
-        foreach($pt_dates as $pt_date){
+        foreach ($pt_dates as $pt_date) {
             $duration = $pt_date['duration'];
-            if($duration[0]<=$normal[0] and $duration[1]>=$normal[1]){
+            if ($duration[0] <= $normal[0] and $duration[1] >= $normal[1]) {
                 array_push($choose, $pt_date['name']);
             }
         }
-        if(count($choose)>0){
-            $n = random_int(0, count($choose)-1);
+        if (count($choose) > 0) {
+            $n = random_int(0, count($choose) - 1);
             return $choose[$n];
-        }else{
+        } else {
             return null;
         }
     }
 
     protected function inputSuggest($shift, $suggest, $normal, $pt_dates)
     {
-        if($suggest){
+        if ($suggest) {
             array_push($shift, [
                 $suggest => $normal
             ]);
             if (($key = array_search($suggest, array_column($pt_dates, 'name'))) !== false) {
                 unset($pt_dates[$key]);
             }
-        }else{
+        } else {
             array_push($shift, [
                 'lack_human' => $normal
             ]);
@@ -205,22 +227,22 @@ class DatesController extends Controller
 
     protected function completeShift($result, $type, $year, $month, $day)
     {
-        if($type == 'create'){
+        if ($type == 'create') {
             $weekday = date('w', mktime(0, 0, 0, $month, $day, $year));
-            ( $weekday == '0' ) ? $weekday='7' : ''; //transfer to 7
+            ($weekday == '0') ? $weekday = '7' : ''; //transfer to 7
             Schedules::create([
                 'year' => $year,
                 'month' => $month,
                 'day' => $day,
                 'week_id' => $weekday,
                 'actived' => false,
-                'shift' =>  serialize($result)
+                'shift' => serialize($result)
             ]);
-        }else{
+        } else {
             $schedule = Schedule::dates($year, $month, $day)->first();
-            if($schedule){
+            if ($schedule) {
                 $schedule->update([
-                    'shift' =>  serialize($result)
+                    'shift' => serialize($result)
                 ]);
             }
         }
