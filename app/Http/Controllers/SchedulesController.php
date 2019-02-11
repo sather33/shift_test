@@ -93,11 +93,17 @@ class SchedulesController extends Controller
     {
         $shopId = 'Y'; //default
         $current_month = $month;
-        $schedule = Schedules::dates($year, $current_month, $day)->first();
-        if ($schedule->shift !== 'off') {
-            $schedule->shift = unserialize($schedule->shift);
+        $schedule_Y = Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first();
+        if ($schedule_Y->shift !== 'off') {
+            $schedule_Y->shift = unserialize($schedule_Y->shift);
         } else {
-            $schedule->shift = [[0, 1]];
+            $schedule_Y->shift = [[0, 1]];
+        }
+        $schedule_A = Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first();
+        if ($schedule_A->shift !== 'off') {
+            $schedule_A->shift = unserialize($schedule_A->shift);
+        } else {
+            $schedule_A->shift = [[0, 1]];
         }
         $dates = Dates::dates($year, $current_month, $day)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
@@ -107,7 +113,7 @@ class SchedulesController extends Controller
         //cal
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         $member_total = $this->getMember($schedules);
-        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'shopId'));
+        return view('front.schedule.edit', compact('schedule_Y', 'schedule_A', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'shopId'));
     }
 
     public function update($year, $month, $day, Request $request)

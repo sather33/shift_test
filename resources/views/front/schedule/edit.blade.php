@@ -8,17 +8,17 @@
             @endfor
         </div>
     @endif
-    <div class="table_box" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}"">
+    <div class="table_box" id="{{$schedule_Y->year}}_{{$schedule_Y->month}}_{{$schedule_Y->day}}"">
         <div class="table_shopY">
             <table class="table" >
                 <thead>
                     <tr>
                         <th class="name">
-                            {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
+                            {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day.'/edit') }}">儲存</a> --}}
                         </th>
                         <th class="time">
-                            <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
-                            @foreach ($schedule->shift as $shift)
+                            <strong>{{$schedule_Y->year}}/{{$schedule_Y->month}}/{{$schedule_Y->day}} {{$week[$schedule_Y->week_id]}}</strong>
+                            @foreach ($schedule_Y->shift as $shift)
                             <span class="lucky">{{ array_keys($shift)[0] }}</span>
                             <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
                             @endforeach
@@ -64,8 +64,8 @@
                             {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
                         </th>
                         <th class="time">
-                            <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
-                            @foreach ($schedule->shift as $shift)
+                            <strong>{{$schedule_A->year}}/{{$schedule_A->month}}/{{$schedule_A->day}} {{$week[$schedule_A->week_id]}}</strong>
+                            @foreach ($schedule_A->shift as $shift)
                             <span class="lucky">{{ array_keys($shift)[0] }}</span>
                             <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
                             @endforeach
@@ -141,7 +141,7 @@
         </div>
     </div>
     <div>
-        <form action="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day) }}" method="POST" enctype="multipart/form-data" role="form">
+        <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day) }}" method="POST" enctype="multipart/form-data" role="form">
     
             {!! csrf_field() !!}
             <div>
