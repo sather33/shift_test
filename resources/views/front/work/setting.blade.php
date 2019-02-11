@@ -98,7 +98,7 @@
                         </form>
                     </th>
                     <th>
-                        <form class="form-horizontal" action="{{ url('/schedules_week') }}" method="POST" enctype="multipart/form-data" role="form">
+                        <form class="form-horizontal" action="{{ url('/Y/schedules_week') }}" method="POST" enctype="multipart/form-data" role="form">
                             {!! csrf_field() !!}
 
                             <input name="year" hidden value={{$schedule->year}}>

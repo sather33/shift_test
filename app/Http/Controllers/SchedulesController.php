@@ -51,7 +51,7 @@ class SchedulesController extends Controller
         return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'anchor', 'shopId'));
     }
 
-    public function schedules_week(Request $request)
+    public function schedules_week(Request $request, $shopId)
     {
         $month = $request->month;
         $year = $request->year;
@@ -59,15 +59,19 @@ class SchedulesController extends Controller
         $current_month = $month;
         $days = date('t', strtotime($year . '-' . $current_month));
         $humans = Members::actived()->get();
-        $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
+        $schedules = Schedules::where('shop_id', $shopId)->where('year', $year)->where('month', $current_month)->get();
         foreach ($schedules as $schedule) {
-            $schedule->shift = unserialize($schedule->shift);
+            if ($schedule->shift !== 'off') {
+                $schedule->shift = unserialize($schedule->shift);
+            } else {
+                $schedule->shift = [[0, 1]];
+            }
         }
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year)) - 1;
         $month = Month::find(1)->number;
         $nav_hidden = 'hidden';
-        return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'days', 'current_month', 'first_weekday_number', 'nav_hidden'));
+        return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'days', 'current_month', 'first_weekday_number', 'nav_hidden', 'shopId'));
     }
 
     public function check(Request $request)
