@@ -140,17 +140,17 @@
             </table>
         </div>
     </div>
-    <div hidden>
+    <div>
         <form action="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day) }}" method="POST" enctype="multipart/form-data" role="form">
     
             {!! csrf_field() !!}
             <div>
                 @foreach ($humans as $human)
                 <div>
-                    <input type="text" name='{{$human->id}}_started_Y'>
-                    <input type="text" name='{{$human->id}}_ended_Y'>
-                    <input type="text" name='{{$human->id}}_started_A'>
-                    <input type="text" name='{{$human->id}}_ended_A'>
+                    <input type="text" name='{{$human->name}}_started_Y' hidden>
+                    <input type="text" name='{{$human->name}}_ended_Y' hidden>
+                    <input type="text" name='{{$human->name}}_started_A' hidden>
+                    <input type="text" name='{{$human->name}}_ended_A' hidden>
                 </div>
                 @endforeach
             </div>
@@ -189,14 +189,13 @@
                     for (let index = startNum; index <= endNum; index++) {
                         $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
                     }
+                    //set input
+                    var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                    $(`input[name='${name}_ended_Y']`).val(endNum);
                 } else if (startNum == endNum) {
                     $(this).removeClass('active');
-                    $(`input[name='${name}_started_Y']`).val();
+                    $(`input[name='${name}_started_Y']`).val(null);
                 }
-
-                //set input
-                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
-                $(`input[name='${name}_ended_Y']`).val(endNum);
             }
         });
         $('.table_shopA .show_time div').click(function() {
@@ -227,14 +226,13 @@
                     for (let index = startNum; index <= endNum; index++) {
                         $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
                     }
+                     //set input
+                    var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                    $(`input[name='${name}_ended_A']`).val(endNum);
                 } else if (startNum == endNum) {
                     $(this).removeClass('active');
-                    $(`input[name='${name}_started_A']`).val();
+                    $(`input[name='${name}_started_A']`).val(null);
                 }
-
-                //set input
-                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
-                $(`input[name='${name}_ended_A']`).val(endNum);
             }
         });
     });

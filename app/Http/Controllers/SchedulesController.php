@@ -112,30 +112,42 @@ class SchedulesController extends Controller
     {
         $data = $request->all();
         $humans = Members::actived()->get();
-        $shift = [];
+        $shift_Y = [];
+        $shift_A = [];
         foreach ($humans as $human) {
             $i = $human->id;
-            if ($data[$i . '_started'] && $data[$i . '_ended']) {
-                array_push($shift, [
-                    Members::find($i)->name => [$data[$i . '_started'], $data[$i . '_ended']]
+            $name = $human->name;
+            if ($data[$name . '_started_Y'] && $data[$name . '_ended_Y']) {
+                array_push($shift_Y, [
+                    Members::find($i)->name => [$data[$name . '_started_Y'], $data[$name . '_ended_Y']]
+                ]);
+            }
+            if ($data[$name . '_started_A'] && $data[$name . '_ended_A']) {
+                array_push($shift_A, [
+                    Members::find($i)->name => [$data[$name . '_started_A'], $data[$name . '_ended_A']]
                 ]);
             }
         }
-        if ($data['lack_human_started'] && $data['lack_human_ended']) {
-            array_push($shift, [
-                'lack_human' => [$data['lack_human_started'], $data['lack_human_ended']]
+        // if ($data['lack_human_started'] && $data['lack_human_ended']) {
+        //     array_push($shift, [
+        //         'lack_human' => [$data['lack_human_started'], $data['lack_human_ended']]
+        //     ]);
+        // }
+        if (!empty($shift_Y)) {
+            Schedules::where('shop_id', 'Y')->dates($year, $month, $day)->update([
+                'shift' => serialize($shift_Y)
             ]);
         }
-        if (!empty($shift)) {
-            Schedules::dates($year, $month, $day)->update([
-                'shift' => serialize($shift)
+        if (!empty($shift_A)) {
+            Schedules::where('shop_id', 'A')->dates($year, $month, $day)->update([
+                'shift' => serialize($shift_A)
             ]);
         }
         // return redirect()->back();
         if (Schedules::dates($year, $month, $day)->first()->actived === 0) {
-            return redirect('/admin/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+            return redirect('/Y/admin/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         } else {
-            return redirect('/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+            return redirect('/Y/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         }
     }
 
