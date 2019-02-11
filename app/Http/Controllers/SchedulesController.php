@@ -91,6 +91,7 @@ class SchedulesController extends Controller
 
     public function edit($year, $month, $day)
     {
+        $shopId = 'Y'; //default
         $current_month = $month;
         $schedule = Schedules::dates($year, $current_month, $day)->first();
         if ($schedule->shift !== 'off') {
@@ -104,7 +105,7 @@ class SchedulesController extends Controller
         //cal
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         $member_total = $this->getMember($schedules);
-        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total'));
+        return view('front.schedule.edit', compact('schedule', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'shopId'));
     }
 
     public function update($year, $month, $day, Request $request)

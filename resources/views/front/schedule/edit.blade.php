@@ -1,153 +1,158 @@
 @extends('front.layout')
 @section('content')
 <div id="content_box">
-    <div class="table_box" id="edit_schedule_box">
-        <table class="table" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}">
-            <thead>
-                <tr>
-                    <th class="name">
-                        {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
-                    </th>
-                    <th class="time">
-                        <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
-                        @foreach ($schedule->shift as $shift)
-                        <span class="lucky">{{ array_keys($shift)[0] }}</span>
-                        <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
-                        @endforeach
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Name</td>
-                    <td class="time_title">
-                        @for ($i = 10; $i < 24; $i++)
-                        <div class="{{ $i }}">{{ $i }}</div>
-                        @endfor
-                    </td>
-                </tr>
-                @foreach ($humans as $human)
-                <tr>
-                    <td>{{ $human->name }}</td>
-                    <td class="{{ $human->name }} show_time">
-                        @for ($i = 10; $i < 24; $i++)
-                        <div class="{{ $i }}"></div>
-                        @endfor
-                    </td>
-                </tr>
-                @endforeach
-                <tr>
-                    <td>缺人</td>
-                    <td class="lack_human show_time">
-                        @for ($i = 10; $i < 24; $i++)
-                        <div class="{{ $i }}"></div>
-                        @endfor
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    @if($member_total)
+        <div class="check_total">
+            @for ($j = 0; $j < count($member_total); $j++)
+            <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} // </span>
+            @endfor
+        </div>
+    @endif
+    <div class="table_box" id="{{$schedule->year}}_{{$schedule->month}}_{{$schedule->day}}"">
+        <div class="table_shopY">
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th class="name">
+                            {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
+                        </th>
+                        <th class="time">
+                            <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
+                            @foreach ($schedule->shift as $shift)
+                            <span class="lucky">{{ array_keys($shift)[0] }}</span>
+                            <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
+                            @endforeach
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td class="time_title">
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}">{{ $i }}</div>
+                            @endfor
+                        </td>
+                    </tr>
+                    @foreach ($humans as $human)
+                    <tr>
+                        <td>{{ $human->name }}</td>
+                        <td class="{{ $human->name }} show_time">
+                            <div class="editing" style="display:none">false</div>
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}"></div>
+                            @endfor
+                        </td>
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td>缺人</td>
+                        <td class="lack_human show_time">
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}"></div>
+                            @endfor
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table_shopA">
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th class="name">
+                            {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
+                        </th>
+                        <th class="time">
+                            <strong>{{$schedule->year}}/{{$schedule->month}}/{{$schedule->day}} {{$week[$schedule->week_id]}}</strong>
+                            @foreach ($schedule->shift as $shift)
+                            <span class="lucky">{{ array_keys($shift)[0] }}</span>
+                            <span class="lucky_time">{{ $shift[array_keys($shift)[0]][0] }}-{{ $shift[array_keys($shift)[0]][1] }}</span>
+                            @endforeach
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td class="time_title">
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}">{{ $i }}</div>
+                            @endfor
+                        </td>
+                    </tr>
+                    @foreach ($humans as $human)
+                    <tr>
+                        <td>{{ $human->name }}</td>
+                        <td class="{{ $human->name }} show_time">
+                            <div class="editing" style="display:none">false</div>
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}"></div>
+                            @endfor
+                        </td>
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td>缺人</td>
+                        <td class="lack_human show_time">
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}"></div>
+                            @endfor
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table_default">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="name"></th>
+                        <th class="time">
+                            <strong>能上班時段</strong>
+                            @foreach ($dates as $date)
+                            <span class="lucky">{{ $date->member->name }}</span>
+                            <span class="lucky_time">{{ $date->shift }}</span>
+                            @endforeach
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td class="time_title">
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}">{{ $i }}</div>
+                            @endfor
+                        </td>
+                    </tr>
+                    @foreach ($humans as $human)
+                    <tr>
+                        <td>{{ $human->name }}</td>
+                        <td class="{{ $human->name }} show_time">
+                            @for ($i = 10; $i < 24; $i++)
+                            <div class="{{ $i }}"></div>
+                            @endfor
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="table_box">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="name"></th>
-                    <th class="time">
-                        <strong>能上班時段</strong>
-                        @foreach ($dates as $date)
-                        <span class="lucky">{{ $date->member->name }}</span>
-                        <span class="lucky_time">{{ $date->shift }}</span>
-                        @endforeach
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Name</td>
-                    <td class="time_title">
-                        @for ($i = 10; $i < 24; $i++)
-                        <div class="{{ $i }}">{{ $i }}</div>
-                        @endfor
-                    </td>
-                </tr>
-                @foreach ($humans as $human)
-                <tr>
-                    <td>{{ $human->name }}</td>
-                    <td class="{{ $human->name }} show_time">
-                        @for ($i = 10; $i < 24; $i++)
-                        <div class="{{ $i }}"></div>
-                        @endfor
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    <div id="input_edit" class="general_form">
-        <form class="form-horizontal" action="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day) }}" method="POST" enctype="multipart/form-data" role="form">
+    <div hidden>
+        <form action="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day) }}" method="POST" enctype="multipart/form-data" role="form">
     
             {!! csrf_field() !!}
-
-            @if($member_total)
-                <div class="check_total">
-                    @for ($j = 0; $j < count($member_total); $j++)
-                    <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} // </span>
-                    @endfor
-                </div>
-            @endif
-            <div class="month_box edit_setting_box">
+            <div>
                 @foreach ($humans as $human)
-                <div class="per_day edit_{{ $human->name }}">
-                    <p>{{ $human->name }}</p>
-                    <select name="{{$human->id}}_started" id="{{$human->name}}_started" class="start">
-                        <option value=""></option>
-                        @for ($j = 10; $j <= '24'; ++$j)
-                        <option value="{{ $j }}">{{ $j }}</option>
-                        @endfor
-                    </select>
-                    <span>-</span>
-                    <select name="{{$human->id}}_ended" id="{{$human->name}}_ended" class="end">
-                        <option value=""></option>
-                        @for ($j = 10; $j <= '24'; ++$j)
-                        <option value="{{ $j }}">{{ $j }}</option>
-                        @endfor
-                    </select>
-                    <br>
-                    <input type="checkbox" class="set_10_15" name="easy_set">
-                    <span class="set_span">10-15</span>
-                    <input type="checkbox" class="set_10_18" name="easy_set">
-                    <span>10-18</span><br>
-                    <input type="checkbox" class="set_18_24" name="easy_set">
-                    <span class="set_span">18-24</span>
-                    <input type="checkbox" class="set_10_24" name="easy_set">
-                    <span>&nbsp;全天&nbsp;</span>
+                <div>
+                    <input type="text" name='{{$human->id}}_started_Y'>
+                    <input type="text" name='{{$human->id}}_ended_Y'>
+                    <input type="text" name='{{$human->id}}_started_A'>
+                    <input type="text" name='{{$human->id}}_ended_A'>
                 </div>
                 @endforeach
-                <div class="per_day edit_lack_human">
-                    <p>缺人</p>
-                    <select name="lack_human_started" id="lack_human_started" class="start">
-                        <option value=""></option>
-                        @for ($j = 10; $j <= '24'; ++$j)
-                        <option value="{{ $j }}">{{ $j }}</option>
-                        @endfor
-                    </select>
-                    <span>-</span>
-                    <select name="lack_human_ended" id="lack_human_ended" class="end">
-                        <option value=""></option>
-                        @for ($j = 10; $j <= '24'; ++$j)
-                        <option value="{{ $j }}">{{ $j }}</option>
-                        @endfor
-                    </select>
-                    <br>
-                    <input type="checkbox" class="set_10_15" name="easy_set">
-                    <span class="set_span">10-15</span>
-                    <input type="checkbox" class="set_10_18" name="easy_set">
-                    <span>10-18</span><br>
-                    <input type="checkbox" class="set_18_24" name="easy_set">
-                    <span class="set_span">18-24</span>
-                    <input type="checkbox" class="set_10_24" name="easy_set">
-                    <span>&nbsp;全天&nbsp;</span>
-                </div>
             </div>
             <input type="submit" value="儲存">
         </form>
@@ -157,49 +162,79 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.set_10_15').change(function(){
-            if($(this).prop('checked')){
-                $(this).parent().find('.start').val(10);
-                $(this).parent().find('.end').val(15);
+        $('.table_shopY .show_time div').click(function() {
+            if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
+                console.log('good');
+                //change to editing
+                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
+
+                //remove all color
+                for (let index = 0; index < $(this).parent()[0].getElementsByTagName('div').length; index++) {
+                    $(this).parent()[0].getElementsByTagName('div')[index].classList.remove('active');
+                }
+
+                //set click div color and input
+                $(this).addClass('active');
+                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                var startNum = $(this).attr('class').split(' ')[0];
+                $(`input[name='${name}_started_Y']`).val(startNum);
             }else{
-                $(this).parent().find('.start').val('');
-                $(this).parent().find('.end').val('');
+                console.log('bad');
+                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'false';
+
+                //color the div
+                var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
+                var endNum = $(this).attr('class').split(' ')[0];
+                if (startNum < endNum) {
+                    for (let index = startNum; index <= endNum; index++) {
+                        $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
+                    }
+                } else if (startNum == endNum) {
+                    $(this).removeClass('active');
+                    $(`input[name='${name}_started_Y']`).val();
+                }
+
+                //set input
+                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                $(`input[name='${name}_ended_Y']`).val(endNum);
             }
         });
-        $('.set_10_18').change(function(){
-            if($(this).prop('checked')){
-                $(this).parent().find('.start').val(10);
-                $(this).parent().find('.end').val(18);
+        $('.table_shopA .show_time div').click(function() {
+            if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
+                console.log('good');
+                //change to editing
+                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
+
+                //remove all color
+                for (let index = 0; index < $(this).parent()[0].getElementsByTagName('div').length; index++) {
+                    $(this).parent()[0].getElementsByTagName('div')[index].classList.remove('active');
+                }
+
+                //set click div color and input
+                $(this).addClass('active');
+                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                var startNum = $(this).attr('class').split(' ')[0];
+                $(`input[name='${name}_started_A']`).val(startNum);
             }else{
-                $(this).parent().find('.start').val('');
-                $(this).parent().find('.end').val('');
-            }
-        });
-        $('.set_10_22').change(function(){
-            if($(this).prop('checked')){
-                $(this).parent().find('.start').val(10);
-                $(this).parent().find('.end').val(22);
-            }else{
-                $(this).parent().find('.start').val('');
-                $(this).parent().find('.end').val('');
-            }
-        });
-        $('.set_18_24').change(function(){
-            if($(this).prop('checked')){
-                $(this).parent().find('.start').val(18);
-                $(this).parent().find('.end').val(24);
-            }else{
-                $(this).parent().find('.start').val('');
-                $(this).parent().find('.end').val('');
-            }
-        });
-        $('.set_10_24').change(function(){
-            if($(this).prop('checked')){
-                $(this).parent().find('.start').val(10);
-                $(this).parent().find('.end').val(24);
-            }else{
-                $(this).parent().find('.start').val('');
-                $(this).parent().find('.end').val('');
+                // console.log('bad');
+                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'false';
+
+                //color the div
+                var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
+                var endNum = $(this).attr('class').split(' ')[0];
+                
+                if (startNum < endNum) {
+                    for (let index = startNum; index <= endNum; index++) {
+                        $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
+                    }
+                } else if (startNum == endNum) {
+                    $(this).removeClass('active');
+                    $(`input[name='${name}_started_A']`).val();
+                }
+
+                //set input
+                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                $(`input[name='${name}_ended_A']`).val(endNum);
             }
         });
     });
