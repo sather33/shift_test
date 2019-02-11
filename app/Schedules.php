@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedules extends Model
 {
     protected $table = 'schedules';
-    protected $fillable = ['year', 'month', 'day', 'shift', 'week_id', 'actived'];
+    protected $fillable = ['year', 'month', 'day', 'shift', 'week_id', 'actived', 'shop_id'];
 
     public function weekday()
     {

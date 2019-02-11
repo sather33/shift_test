@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Week extends Model
 {
     protected $table = 'week';
-    protected $fillable = ['name', 'range'];
+    protected $fillable = ['name', 'range', 'shop_id'];
 
     public function dates()
     {

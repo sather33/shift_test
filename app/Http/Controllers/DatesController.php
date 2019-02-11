@@ -86,7 +86,8 @@ class DatesController extends Controller
                 $this->work_default($year, $month, $i);
             }
         }
-        return redirect()->action('SchedulesController@admin_index');
+        $shopId = 'Y';
+        return redirect()->action('SchedulesController@admin_index', [$shopId]);
         // return view('front.work.index');
     }
 
@@ -99,7 +100,7 @@ class DatesController extends Controller
             'day' => $day,
             'week_id' => date('w', mktime(0, 0, 0, $month, $day, $year)),
             'actived' => false,
-            'shift' => ''
+            'shift' => 'off'
         ]);
         Schedules::create([
             'shop_id' => 'A',
@@ -108,7 +109,7 @@ class DatesController extends Controller
             'day' => $day,
             'week_id' => date('w', mktime(0, 0, 0, $month, $day, $year)),
             'actived' => false,
-            'shift' => ''
+            'shift' => 'off'
         ]);
     }
 

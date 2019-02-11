@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/schedules/check', 'SchedulesController@check');
     Route::post('/calculate_time', 'SchedulesController@calculate_time');
     Route::post('/publish_schedule', 'SchedulesController@publish_schedule');
-    Route::get('{$shopId}/admin/schedules', 'SchedulesController@admin_index');
+    Route::get('{shopId}/un_schedules', 'SchedulesController@admin_index');
     Route::post('/setting', 'OptionController@save_setting');
     Route::get('/setting', 'OptionController@setting');
     Route::post('/limit', 'OptionController@limit');

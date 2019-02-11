@@ -16,6 +16,27 @@
             </select>
             <input type="submit" class="btn btn-success" value="儲存">
         </form>
+        <form class="form-horizontal" action="{{ url('/limit') }}" method="POST" enctype="multipart/form-data" role="form"
+        onsubmit='return confirm("確定要更改截止時間嗎?")'>
+            {!! csrf_field() !!}
+
+            <label for="month">設定截止日期</label>
+            <select name="limit_date" id="limit_date" class="form-control" >
+                <option value=""></option>
+                @for ($i = 1; $i <= $current_dates; $i++)
+                <option value="{{$i}}" {{ $option->limit_date == $i ? 'selected' :'' }} >{{$i}}</option>
+                @endfor
+            </select>
+            <span>日</span>
+            <select id="limit_hour" name="limit_hour" class="form-control" >
+                <option value=""></option>
+                @for ($i = 1; $i <= '24'; $i++)
+                <option value="{{$i}}" {{ $option->limit_hour == $i ? 'selected' :'' }}>{{$i}}</option>
+                @endfor
+            </select>
+            <span>時&nbsp;</span>
+            <input type="submit" class="btn btn-success" value="儲存">
+        </form>
         @if($member_total)
             @for ($j = 0; $j < count($member_total); $j++)
             <h3>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} 小時</h3>
@@ -30,7 +51,6 @@
                     <th>時數</th>
                     <th>排班</th>
                     <th>發布</th>
-                    <th>截止時間</th>
                     <th>月曆</th>
                     <th>匯出</th>
                 </tr>
@@ -75,28 +95,6 @@
                             <input name="publish_year" hidden value={{$schedule->year}}>
                             <input name="publish_month" hidden value={{$schedule->month}}>
                             <input type="submit" class="btn btn-danger" value="發布" {{ $schedule->actived ? 'disabled' : '' }}>
-                        </form>
-                    </th>
-                    <th>
-                        <form class="form-horizontal" action="{{ url('/limit') }}" method="POST" enctype="multipart/form-data" role="form"
-                        onsubmit='return confirm("確定要更改截止時間嗎?")'>
-                            {!! csrf_field() !!}
-
-                            <select name="limit_date" id="limit_date" class="form-control" >
-                                <option value=""></option>
-                                @for ($i = 1; $i <= $current_dates; $i++)
-                                <option value="{{$i}}" {{ $option->limit_date == $i ? 'selected' :'' }} >{{$i}}</option>
-                                @endfor
-                            </select>
-                            <span>日</span>
-                            <select id="limit_hour" name="limit_hour" class="form-control" >
-                                <option value=""></option>
-                                @for ($i = 1; $i <= '24'; $i++)
-                                <option value="{{$i}}" {{ $option->limit_hour == $i ? 'selected' :'' }}>{{$i}}</option>
-                                @endfor
-                            </select>
-                            <span>時&nbsp;</span>
-                            <input type="submit" class="btn btn-info" value="儲存">
                         </form>
                     </th>
                     <th>

@@ -96,6 +96,8 @@ class SchedulesController extends Controller
         $schedule = Schedules::dates($year, $current_month, $day)->first();
         if ($schedule->shift !== 'off') {
             $schedule->shift = unserialize($schedule->shift);
+        } else {
+            $schedule->shift = [[0, 1]];
         }
         $dates = Dates::dates($year, $current_month, $day)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
@@ -145,7 +147,7 @@ class SchedulesController extends Controller
         }
         // return redirect()->back();
         if (Schedules::dates($year, $month, $day)->first()->actived === 0) {
-            return redirect('/Y/admin/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+            return redirect('/Y/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         } else {
             return redirect('/Y/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         }
