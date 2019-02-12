@@ -84,7 +84,8 @@ class SchedulesController extends Controller
         $dates = Dates::where('year', $year)->where('month', $current_month)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
-        return view('front.schedule.check', compact('dates', 'humans', 'week', 'month', 'year', 'current_month', 'days'));
+        $shopId = 'Y';
+        return view('front.schedule.check', compact('dates', 'humans', 'week', 'month', 'year', 'current_month', 'days', 'shopId'));
     }
 
     public function weekday()

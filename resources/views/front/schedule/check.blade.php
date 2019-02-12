@@ -7,7 +7,7 @@
     <span class="{{ ( $i == $current_month ) ? 'current_month' : '' }}">{{ $i }}</span>
     @endfor
 </h1> --}}
-<div id="content_box">
+<div id="content_box" class="table_default">
     <div class="row">
         @for ($k = 1; $k <= $days; $k++)
         <div class="col-md-6 col-xs-12 table_box">

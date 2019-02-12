@@ -50,11 +50,12 @@ body
             background-color: #FEDFE1
             text-align: center
 
-        .table_box
+        .table_box, .edit_table_box
             position: relative
-            display: flex
+            display: inline-flex
             flex-wrap: wrap
-            width: 100%
+            width: 49%
+            padding: 5px
 
             div
                 width: 100%
@@ -151,6 +152,12 @@ body
                         .綿綿
                             .active
                                 background-color: $綿綿_color
+        .edit_table_box
+            width: 100%
+
+            div
+                width: 49%
+                padding-right: 5px
 
         #input_edit
             form
@@ -207,11 +214,11 @@ body
                 width: 100%
                 padding: 10px
 
-            .table
-                tbody
-                    tr
-                        .show_time, .time_title
-                            padding-top: 14px
+                .table
+                    tbody
+                        tr
+                            .show_time, .time_title
+                                padding-top: 14px
 
 @media screen and (max-width: 425px)
     $nav_width: 100%
@@ -283,6 +290,9 @@ body
 @media screen and (max-width: 375px)
     #front_container
         #content_box
+            padding-left: 0px
+            padding-right: 0px
+
             .table
                 tbody
                     tr
