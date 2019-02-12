@@ -18,9 +18,13 @@
   </ul>
   <a class="other-day-off mobile-hidden">申請額外劃休</a>
   <a class="about-shift mobile-hidden">關於排班</a>
+  <a href='/Y/schedules' class="mobile-hidden">延吉店</a>
+  <a href='/A/schedules' class="mobile-hidden">安東店</a>
   @if (Auth::check())
   <!-- <a href="{{ url('/admin/schedules') }}">未發佈的1月班表</a> -->
   <a href="{{ url('/setting') }}" class="mobile-hidden">後台</a>
+  <a href="/Y/un_schedules" class="mobile-hidden">延吉店(未發佈)</a>
+  <a href="/A/un_schedules" class="mobile-hidden">安東店(未發佈)</a>
   <a href="{{ url('/logout') }}" class="log-out mobile-hidden">Log-out</a>
   @else
   <a href="{{ url('/login') }}" class="log-in mobile-hidden">Log-in</a>

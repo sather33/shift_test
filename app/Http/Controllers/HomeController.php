@@ -30,6 +30,7 @@ class HomeController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->action('SchedulesController@index');
+        $shopId = 'Y';
+        return redirect()->action('SchedulesController@index', [$shopId]);
     }
 }
