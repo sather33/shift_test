@@ -34,7 +34,8 @@ class DatesController extends Controller
         $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year)) - 1;
         $days = date('t', strtotime($year . '-' . $current_month));
         $nav_hidden = 'hidden';
-        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'current_month', 'year', 'first_weekday_number', 'not_limit', 'nav_hidden'));
+        $shopId = 'Y';
+        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'current_month', 'year', 'first_weekday_number', 'not_limit', 'nav_hidden', 'shopId'));
     }
 
     public function save_shift($id, $month, Request $request)
