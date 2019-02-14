@@ -99,17 +99,25 @@ class SchedulesController extends Controller
     {
         $shopId = 'Y'; //default
         $current_month = $month;
-        $schedule_Y = Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first();
-        if ($schedule_Y->shift !== 'off') {
-            $schedule_Y->shift = unserialize($schedule_Y->shift);
+        if (Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first()) {
+            $schedule_Y = Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first();
+            if ($schedule_Y->shift !== 'off') {
+                $schedule_Y->shift = unserialize($schedule_Y->shift);
+            } else {
+                $schedule_Y->shift = [[0, 1]];
+            }
         } else {
-            $schedule_Y->shift = [[0, 1]];
+            $schedule_Y = null;
         }
-        $schedule_A = Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first();
-        if ($schedule_A->shift !== 'off') {
-            $schedule_A->shift = unserialize($schedule_A->shift);
+        if (Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first()) {
+            $schedule_A = Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first();
+            if ($schedule_A->shift !== 'off') {
+                $schedule_A->shift = unserialize($schedule_A->shift);
+            } else {
+                $schedule_A->shift = [[0, 1]];
+            }
         } else {
-            $schedule_A->shift = [[0, 1]];
+            $schedule_A = null;
         }
         $dates = Dates::dates($year, $current_month, $day)->get();
         $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];

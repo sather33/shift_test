@@ -10,6 +10,7 @@
             </div>
         @endif
         <div class="edit_table_box" id="{{$schedule_Y->year}}_{{$schedule_Y->month}}_{{$schedule_Y->day}}"">
+            @if(!!$schedule_Y)
             <div class="table_shopY">
                 <table class="table" >
                     <thead>
@@ -57,6 +58,8 @@
                     </tbody>
                 </table>
             </div>
+            @endif
+            @if (!!$schedule_A)
             <div class="table_shopA">
                 <table class="table" >
                     <thead>
@@ -104,6 +107,7 @@
                     </tbody>
                 </table>
             </div>
+            @endif
             <div class="table_default">
                 <table class="table">
                     <thead>
