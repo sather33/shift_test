@@ -29,7 +29,7 @@ class SchedulesController extends Controller
                 $schedule->shift = unserialize($schedule->shift);
             }
         }
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+        $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
         $anchor = $request->anchor ? : $year . '_' . $current_month . '_' . date("j");
         return view('front.schedule.index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor', 'shopId'));
@@ -45,7 +45,7 @@ class SchedulesController extends Controller
                 $schedule->shift = unserialize($schedule->shift);
             }
         }
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+        $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
         $anchor = $request->anchor ? : null;
         $admin_show = true;
