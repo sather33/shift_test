@@ -12,20 +12,22 @@ class ScheduleExport implements FromCollection
   public function __construct($request)
   {
     $this->month = $request->month;
-    $this->year  = $request->year;
+    $this->year = $request->year;
   }
 
   public function collection()
   {
     $schedules = Schedules::where('year', $this->year)->where('month', $this->month)->get();
-    foreach($schedules as $schedule){
-      $shift = unserialize($schedule->shift);
-      for ($i=0; $i < count($shift); $i++) { 
-        $person = 'person_'.$i;
-        $person_shift = 'person_'.$i.'_shift';
-        $name = array_keys($shift[$i])[0];
-        $schedule->$person = $name;
-        $schedule->$person_shift = $shift[$i][$name][0].'-'.$shift[$i][$name][1];
+    foreach ($schedules as $schedule) {
+      if ($schedule->shift !== 'off') {
+        $shift = unserialize($schedule->shift);
+        for ($i = 0; $i < count($shift); $i++) {
+          $person = 'person_' . $i;
+          $person_shift = 'person_' . $i . '_shift';
+          $name = array_keys($shift[$i])[0];
+          $schedule->$person = $name;
+          $schedule->$person_shift = $shift[$i][$name][0] . '-' . $shift[$i][$name][1];
+        }
       }
       unset($schedule->shift);
       unset($schedule->created_at);
@@ -33,6 +35,6 @@ class ScheduleExport implements FromCollection
       unset($schedule->week_id);
       unset($schedule->actived);
     }
-    return $schedules; 
+    return $schedules;
   }
 }
