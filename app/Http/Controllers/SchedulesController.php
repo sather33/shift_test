@@ -68,7 +68,7 @@ class SchedulesController extends Controller
                 $schedule->shift = [[0, 1]];
             }
         }
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+        $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year)) - 1;
         $month = Month::find(1)->number;
         $nav_hidden = 'hidden';
@@ -82,7 +82,7 @@ class SchedulesController extends Controller
         $days = date('t', strtotime($year . '-' . $current_month));
         $humans = Members::actived()->get();
         $dates = Dates::where('year', $year)->where('month', $current_month)->get();
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+        $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
         $shopId = 'Y';
         return view('front.schedule.check', compact('dates', 'humans', 'week', 'month', 'year', 'current_month', 'days', 'shopId'));
@@ -120,7 +120,7 @@ class SchedulesController extends Controller
             $schedule_A = null;
         }
         $dates = Dates::dates($year, $current_month, $day)->get();
-        $week = ['0', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+        $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $humans = Members::all();
         $month = Month::find(1)->number;
 
