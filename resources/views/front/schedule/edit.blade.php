@@ -9,7 +9,11 @@
                 @endfor
             </div>
         @endif
-        <div class="edit_table_box" id="{{$schedule_Y->year}}_{{$schedule_Y->month}}_{{$schedule_Y->day}}"">
+        @if(!!$schedule_Y)
+            <div class="edit_table_box" id="{{$schedule_Y->year}}_{{$schedule_Y->month}}_{{$schedule_Y->day}}">
+        @else
+            <div class="edit_table_box" id="{{$schedule_A->year}}_{{$schedule_A->month}}_{{$schedule_A->day}}">
+        @endif
             @if(!!$schedule_Y)
             <div class="table_shopY">
                 <table class="table" >
@@ -146,7 +150,11 @@
             </div>
         </div>
         <div>
-            <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+            @if(!!$schedule_Y)
+                <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+            @else
+                <form action="{{ url('/schedule/'.$schedule_A->year.'/'.$schedule_A->month.'/'.$schedule_A->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+            @endif
         
                 {!! csrf_field() !!}
                 <div>
