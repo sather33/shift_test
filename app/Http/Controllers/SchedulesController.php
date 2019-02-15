@@ -224,7 +224,7 @@ class SchedulesController extends Controller
 
     public function export(Request $request)
     {
-        $excel = Excel::download(new ScheduleExport($request), 'LBC_班表' . $request->year . '_' . $request->month . '.xlsx');
+        $excel = Excel::download(new ScheduleExport($request), 'LBC' . $request->year . '年' . $request->month . '月班表.xlsx');
         return $excel;
     }
 }
