@@ -168,9 +168,11 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
+        const shopId = ['Y', 'A'];
+        //set by click
         $('.table_shopY .show_time div').click(function() {
             if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
-                console.log('good');
+                // console.log('good');
                 //change to editing
                 $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
 
@@ -185,22 +187,27 @@
                 var startNum = $(this).attr('class').split(' ')[0];
                 $(`input[name='${name}_started_Y']`).val(startNum);
             }else{
-                console.log('bad');
+                // console.log('bad');
                 $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'false';
 
                 //color the div
                 var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
                 var endNum = $(this).attr('class').split(' ')[0];
+                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
                 if (startNum < endNum) {
                     for (let index = startNum; index <= endNum; index++) {
                         $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
                     }
                     //set input
-                    var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
                     $(`input[name='${name}_ended_Y']`).val(endNum);
                 } else if (startNum == endNum) {
+                    // console.log('same');
                     $(this).removeClass('active');
                     $(`input[name='${name}_started_Y']`).val(null);
+                    // console.log(`input[name='${name}_started_Y']`);
+                    // console.log($(`input[name='${name}_started_Y']`).val());
+                    $(`input[name='${name}_ended_Y']`).val(null);
+                    // console.log($(`input[name='${name}_ended_Y']`).val());
                 }
             }
         });
@@ -238,9 +245,26 @@
                 } else if (startNum == endNum) {
                     $(this).removeClass('active');
                     $(`input[name='${name}_started_A']`).val(null);
+                    $(`input[name='${name}_ended_A']`).val(null);
                 }
             }
         });
+
+        //set default input
+        for (let i = 0; i < shopId.length; i++) {
+            var shopYDefaultInputName = $(`.table_shop${shopId[i]} .lucky`);
+            var shopYDefaultInputValue = $(`.table_shop${shopId[i]} .lucky_time`);
+            if (shopYDefaultInputName.length > 0) {
+                for (let index = 0; index < shopYDefaultInputName.length; index++) {
+                    var name = shopYDefaultInputName[index].innerHTML;
+                    var value = shopYDefaultInputValue[index].innerHTML.split('-');
+                    $(`input[name='${name}_started_${shopId[i]}']`).val(value[0]);
+                    $(`input[name='${name}_ended_${shopId[i]}']`).val(value[1]);
+                    console.log($(`input[name='${name}_started_${shopId[i]}']`).val());
+                    console.log($(`input[name='${name}_ended_${shopId[i]}']`).val());
+                }
+            }
+        }
     });
 </script>
 @stop
