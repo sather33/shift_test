@@ -98,12 +98,19 @@
                         </form>
                     </th>
                     <th>
-                        <form class="form-horizontal" action="{{ url('/Y/schedules_week') }}" method="POST" enctype="multipart/form-data" role="form">
+                        <form class="form-horizontal" action="{{ url('/Y/schedules_week') }}" method="POST" enctype="multipart/form-data" role="form" style="display: inline-block">
                             {!! csrf_field() !!}
 
                             <input name="year" hidden value={{$schedule->year}}>
                             <input name="month" hidden value={{$schedule->month}}>
-                            <input type="submit" class="btn btn-dark" value="查詢">
+                            <input type="submit" class="btn btn-dark" value="延吉">
+                        </form>
+                        <form class="form-horizontal" action="{{ url('/A/schedules_week') }}" method="POST" enctype="multipart/form-data" role="form" style="display: inline-block">
+                            {!! csrf_field() !!}
+
+                            <input name="year" hidden value={{$schedule->year}}>
+                            <input name="month" hidden value={{$schedule->month}}>
+                            <input type="submit" class="btn btn-dark" value="安東">
                         </form>
                     </th>
                     <th>
