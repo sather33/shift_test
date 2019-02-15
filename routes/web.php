@@ -22,9 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/shift_schedule', 'DatesController@shift_schedule');
     Route::get('/weekday', 'SchedulesController@weekday');
     Route::post('/weekday', 'SchedulesController@setWeekday');
-    Route::get('/schedule/{year}/{month}/{day}/edit', 'SchedulesController@edit');
-    Route::get('/schedule/{year}/{month}/{day}/edit/{admin}', 'SchedulesController@edit');
-    Route::post('/schedule/{year}/{month}/{day}', 'SchedulesController@update');
+    // Route::get('/schedule/{year}/{month}/{day}/edit', 'SchedulesController@edit');
+    Route::get('/schedule/{year}/{month}/{day}/edit/{back}', 'SchedulesController@edit');
+    Route::post('/schedule/{year}/{month}/{day}/{back}', 'SchedulesController@update');
     Route::get('/logout', 'HomeController@logout');
     Route::post('/schedules/check', 'SchedulesController@check');
     Route::post('/calculate_time', 'SchedulesController@calculate_time');
@@ -43,4 +43,4 @@ Route::get('/give_shift/{id}/{month}', 'DatesController@give_shift');
 Route::post('/give_shift/{id}/{month}', 'DatesController@save_shift');
 Route::get('{shopId}/schedules', 'SchedulesController@index');
 Route::get('{shopId}/schedules/{month}', 'SchedulesController@show');
-Route::post('{shopId}/schedules_week', 'SchedulesController@schedules_week');
+Route::get('{shopId}/schedules_week/{year}/{month}', 'SchedulesController@schedules_week');

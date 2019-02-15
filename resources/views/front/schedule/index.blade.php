@@ -11,7 +11,7 @@
                     <tr>
                         <th class="name">
                             @if (Auth::check())
-                            <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">修改</a>
+                            <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit/normal') }}">修改</a>
                             @endif
                         </th>
                         <th class="time">

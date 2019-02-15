@@ -52,11 +52,8 @@ class SchedulesController extends Controller
         return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'anchor', 'shopId', 'admin_show'));
     }
 
-    public function schedules_week(Request $request, $shopId)
+    public function schedules_week($shopId, $year, $month)
     {
-        $month = $request->month;
-        $year = $request->year;
-
         $current_month = $month;
         $days = date('t', strtotime($year . '-' . $current_month));
         $humans = Members::actived()->get();
@@ -69,7 +66,7 @@ class SchedulesController extends Controller
             }
         }
         $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
-        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, $year)) - 1;
+        $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, (int)$year)) - 1;
         $month = Month::find(1)->number;
         $nav_hidden = 'hidden';
         return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'days', 'current_month', 'first_weekday_number', 'nav_hidden', 'shopId'));
@@ -95,26 +92,34 @@ class SchedulesController extends Controller
         return view('front.work.weekday', compact('weekdays'));
     }
 
-    public function edit($year, $month, $day)
+    public function edit($year, $month, $day, $back)
     {
-        $shopId = 'Y'; //default
+        $shopId = ($back === 'A') ? 'A' : 'Y';
         $current_month = $month;
-        if (Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first()) {
-            $schedule_Y = Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first();
-            if ($schedule_Y->shift !== 'off') {
-                $schedule_Y->shift = unserialize($schedule_Y->shift);
+        if ($back !== 'A' || $back === 'normal') {
+            if (Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first()) {
+                $schedule_Y = Schedules::where('shop_id', 'Y')->dates($year, $current_month, $day)->first();
+                if ($schedule_Y->shift !== 'off') {
+                    $schedule_Y->shift = unserialize($schedule_Y->shift);
+                } else {
+                    $schedule_Y->shift = [[0, 1]];
+                }
             } else {
-                $schedule_Y->shift = [[0, 1]];
+                $schedule_Y = null;
             }
         } else {
             $schedule_Y = null;
         }
-        if (Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first()) {
-            $schedule_A = Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first();
-            if ($schedule_A->shift !== 'off') {
-                $schedule_A->shift = unserialize($schedule_A->shift);
+        if ($back !== 'Y' || $back === 'normal') {
+            if (Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first()) {
+                $schedule_A = Schedules::where('shop_id', 'A')->dates($year, $current_month, $day)->first();
+                if ($schedule_A->shift !== 'off') {
+                    $schedule_A->shift = unserialize($schedule_A->shift);
+                } else {
+                    $schedule_A->shift = [[0, 1]];
+                }
             } else {
-                $schedule_A->shift = [[0, 1]];
+                $schedule_A = null;
             }
         } else {
             $schedule_A = null;
@@ -127,15 +132,21 @@ class SchedulesController extends Controller
         //cal
         $schedules = Schedules::where('year', $year)->where('month', $current_month)->get();
         $member_total = $this->getMember($schedules);
-        return view('front.schedule.edit', compact('schedule_Y', 'schedule_A', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'shopId'));
+        return view('front.schedule.edit', compact('schedule_Y', 'schedule_A', 'dates', 'week', 'humans', 'month', 'current_month', 'member_total', 'shopId', 'back'));
     }
 
-    public function update($year, $month, $day, Request $request)
+    public function update($year, $month, $day, $back, Request $request)
     {
         $data = $request->all();
         $humans = Members::actived()->get();
         $shift_Y = [];
         $shift_A = [];
+        if ($back == 'Y') {
+            $shopId = 'Y';
+        };
+        if ($back == 'A') {
+            $shopId = 'A';
+        };
         foreach ($humans as $human) {
             $i = $human->id;
             $name = $human->name;
@@ -166,11 +177,19 @@ class SchedulesController extends Controller
             ]);
         }
         // return redirect()->back();
-        if (Schedules::dates($year, $month, $day)->first()->actived === 0) {
+        if ($back === 'Y' || $back === 'A') {
+            return redirect('/' . $shopId . '/schedules_week/' . $year . '/' . $month);
+        } elseif ($back === 'unpublishY') {
             return redirect('/Y/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
-        } else {
-            return redirect('/Y/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        } elseif ($back === 'unpublishA') {
+            return redirect('/A/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         }
+        return redirect('/' . $shopId . '/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        // if (Schedules::dates($year, $month, $day)->first()->actived === 0) {
+        //     return redirect('/Y/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        // } else {
+        //     return redirect('/Y/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        // }
     }
 
     public function calculate_time(Request $request)

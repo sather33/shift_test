@@ -146,7 +146,7 @@
             </div>
         </div>
         <div>
-            <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day) }}" method="POST" enctype="multipart/form-data" role="form">
+            <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
         
                 {!! csrf_field() !!}
                 <div>

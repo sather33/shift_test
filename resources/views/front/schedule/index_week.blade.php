@@ -1,6 +1,7 @@
 @extends('front.layout')
 @section('content')
 <div class="general_form week_box">
+    <a href="/setting">返回後台</a>
     <form action="" class={{ $shopId == 'Y' ? "table_shopY" : "table_shopA" }}>
         <div class="month_box">
             <div class="month_box_title">
@@ -19,7 +20,7 @@
             @endif
             @foreach($schedules as $schedule)
             <div class="per_day">
-                <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit/admin') }}">
+                <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit'.'/'.$shopId) }}">
                     <p>{{$schedule->day}}</p>
                 </a>
                 @foreach ($schedule->shift as $shift)
