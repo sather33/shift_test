@@ -183,8 +183,10 @@ class SchedulesController extends Controller
             return redirect('/Y/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         } elseif ($back === 'unpublishA') {
             return redirect('/A/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        } elseif ($back === 'normalY') {
+            return redirect('/Y/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         }
-        return redirect('/' . $shopId . '/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        return redirect('/A/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         // if (Schedules::dates($year, $month, $day)->first()->actived === 0) {
         //     return redirect('/Y/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
         // } else {
