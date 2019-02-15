@@ -1,7 +1,7 @@
 @extends('front.layout')
 @section('content')
 <div class="general_form week_box">
-    <form action="">
+    <form action="" class={{ $shopId == 'Y' ? "table_shopY" : "table_shopA" }}>
         <div class="month_box">
             <div class="month_box_title">
                 <div>一</div>
