@@ -1,5 +1,5 @@
 <div id="nav" {{ empty($nav_hidden) ?: 'hidden'}} class={{ $shopId === 'Y' ? 'shopY' : 'shopA' }}>
-  <a class="logo" href="{{ $shopId === 'Y' ? url('/A/schedules') : url('/Y/schedules') }}">{{$shopId}}</a>
+  <a class="logo" href="{{ $shopId === 'Y' ? url('/Y/schedules') : url('/A/schedules') }}">{{$shopId}}</a>
   <span class="arrow-down glyphicon glyphicon-chevron-down"></span>
   <ul class="expand_list mobile-hidden">
     <li>查看班表</li>
