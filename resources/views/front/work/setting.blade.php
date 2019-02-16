@@ -48,7 +48,7 @@
                 <tr class="head_tr">
                     <th>班表</th>
                     <th>劃班情形</th>
-                    <th>時數</th>
+                    {{-- <th>時數</th> --}}
                     <th>排班</th>
                     <th>發布</th>
                     <th>月曆</th>
@@ -68,7 +68,7 @@
                             <input type="submit" class="btn btn-primary" value="查詢">
                         </form>
                     </th>
-                    <th>
+                    {{-- <th>
                         <form class="form-horizontal" action="{{ url('/calculate_time') }}" method="POST" enctype="multipart/form-data" role="form">
                             {!! csrf_field() !!}
 
@@ -76,7 +76,7 @@
                             <input name="calculate_month" hidden value={{$schedule->month}}>
                             <input type="submit" class="btn btn-secondary" value="查詢">
                         </form>
-                    </th>
+                    </th> --}}
                     <th>
                         <form class="form-horizontal" action="{{ url('/shift_schedule') }}" method="POST" enctype="multipart/form-data" role="form">
                             {!! csrf_field() !!}
