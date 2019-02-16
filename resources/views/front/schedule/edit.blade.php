@@ -177,89 +177,48 @@
 <script type="text/javascript">
     $(document).ready(function(){
         const shopId = ['Y', 'A'];
-        //set by click
-        $('.table_shopY .show_time div').click(function() {
-            if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
-                // console.log('good');
-                //change to editing
-                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
-
-                //remove all color
-                for (let index = 0; index < $(this).parent()[0].getElementsByTagName('div').length; index++) {
-                    $(this).parent()[0].getElementsByTagName('div')[index].classList.remove('active');
-                }
-
-                //set click div color and input
-                $(this).addClass('active');
-                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
-                var startNum = $(this).attr('class').split(' ')[0];
-                $(`input[name='${name}_started_Y']`).val(startNum);
-            }else{
-                // console.log('bad');
-                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'false';
-
-                //color the div
-                var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
-                var endNum = $(this).attr('class').split(' ')[0];
-                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
-                if (startNum < endNum) {
-                    for (let index = startNum; index <= endNum; index++) {
-                        $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
-                    }
-                    //set input
-                    $(`input[name='${name}_ended_Y']`).val(endNum);
-                } else if (startNum == endNum) {
-                    // console.log('same');
-                    $(this).removeClass('active');
-                    $(`input[name='${name}_started_Y']`).val(null);
-                    // console.log(`input[name='${name}_started_Y']`);
-                    // console.log($(`input[name='${name}_started_Y']`).val());
-                    $(`input[name='${name}_ended_Y']`).val(null);
-                    // console.log($(`input[name='${name}_ended_Y']`).val());
-                }
-            }
-        });
-        $('.table_shopA .show_time div').click(function() {
-            if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
-                console.log('good');
-                //change to editing
-                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
-
-                //remove all color
-                for (let index = 0; index < $(this).parent()[0].getElementsByTagName('div').length; index++) {
-                    $(this).parent()[0].getElementsByTagName('div')[index].classList.remove('active');
-                }
-
-                //set click div color and input
-                $(this).addClass('active');
-                var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
-                var startNum = $(this).attr('class').split(' ')[0];
-                $(`input[name='${name}_started_A']`).val(startNum);
-            }else{
-                // console.log('bad');
-                $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'false';
-
-                //color the div
-                var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
-                var endNum = $(this).attr('class').split(' ')[0];
-                
-                if (startNum < endNum) {
-                    for (let index = startNum; index <= endNum; index++) {
-                        $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
-                    }
-                     //set input
-                    var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
-                    $(`input[name='${name}_ended_A']`).val(endNum);
-                } else if (startNum == endNum) {
-                    $(this).removeClass('active');
-                    $(`input[name='${name}_started_A']`).val(null);
-                    $(`input[name='${name}_ended_A']`).val(null);
-                }
-            }
-        });
-
-        //set default input
         for (let i = 0; i < shopId.length; i++) {
+            //set by click
+            $(`.table_shop${shopId[i]} .show_time div`).click(function() {
+                if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
+                    console.log('good');
+                    //change to editing
+                    $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
+
+                    //remove all color
+                    for (let index = 0; index < $(this).parent()[0].getElementsByTagName('div').length; index++) {
+                        $(this).parent()[0].getElementsByTagName('div')[index].classList.remove('active');
+                    }
+
+                    //set click div color and input
+                    $(this).addClass('active');
+                    var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                    var startNum = $(this).attr('class').split(' ')[0];
+                    $(`input[name='${name}_started_${shopId[i]}']`).val(startNum);
+                }else{
+                    // console.log('bad');
+                    $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'false';
+
+                    //color the div
+                    var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
+                    var endNum = $(this).attr('class').split(' ')[0];
+                    
+                    if (startNum < endNum) {
+                        for (let index = startNum; index <= endNum; index++) {
+                            $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
+                        }
+                        //set input
+                        var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
+                        $(`input[name='${name}_ended_${shopId[i]}']`).val(parseInt(endNum)+1);
+                    } else if (startNum == endNum) {
+                        $(this).removeClass('active');
+                        $(`input[name='${name}_started_${shopId[i]}']`).val(null);
+                        $(`input[name='${name}_ended_${shopId[i]}']`).val(null);
+                    }
+                }
+            });
+
+            //set default input
             var shopYDefaultInputName = $(`.table_shop${shopId[i]} .lucky`);
             var shopYDefaultInputValue = $(`.table_shop${shopId[i]} .lucky_time`);
             if (shopYDefaultInputName.length > 0) {
