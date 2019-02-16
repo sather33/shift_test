@@ -2,6 +2,13 @@
 @section('content')
 <div class="general_form week_box">
     <a href="/setting">返回後台</a>
+    @if($member_total)
+        <div class="check_total">
+            @for ($j = 0; $j < count($member_total); $j++)
+            <span>{{ $name = array_keys($member_total)[$j] }}: {{ $member_total[$name] }} // </span>
+            @endfor
+        </div>
+    @endif
     <form action="" class={{ $shopId == 'Y' ? "table_shopY" : "table_shopA" }}>
         <div class="month_box">
             <div class="month_box_title">

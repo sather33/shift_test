@@ -69,7 +69,9 @@ class SchedulesController extends Controller
         $first_weekday_number = date('w', mktime(0, 0, 0, $current_month, 1, (int)$year)) - 1;
         $month = Month::find(1)->number;
         $nav_hidden = 'hidden';
-        return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'days', 'current_month', 'first_weekday_number', 'nav_hidden', 'shopId'));
+        $schedules_total = Schedules::where('year', $year)->where('month', $current_month)->get();
+        $member_total = $this->getMember($schedules_total);
+        return view('front.schedule.index_week', compact('schedules', 'humans', 'week', 'month', 'days', 'current_month', 'first_weekday_number', 'nav_hidden', 'shopId', 'member_total'));
     }
 
     public function check(Request $request)
