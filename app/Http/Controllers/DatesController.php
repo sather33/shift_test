@@ -35,7 +35,15 @@ class DatesController extends Controller
         $days = date('t', strtotime($year . '-' . $current_month));
         $nav_hidden = 'hidden';
         $shopId = 'Y';
-        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'current_month', 'year', 'first_weekday_number', 'not_limit', 'nav_hidden', 'shopId'));
+
+        if (date('j') < $limit_date) {
+            $approved = true;
+        } elseif (date('j') == $limit_date) {
+            $approved = (date("H") < $limit_hour) ? true : false;
+        } else {
+            $approved = false;
+        }
+        return view('front.work.give_shift', compact('humans', 'user', 'schedule', 'days', 'month', 'current_month', 'year', 'first_weekday_number', 'not_limit', 'nav_hidden', 'shopId', 'approved'));
     }
 
     public function save_shift($id, $month, Request $request)

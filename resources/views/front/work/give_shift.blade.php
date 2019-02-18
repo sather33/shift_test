@@ -1,6 +1,6 @@
 @extends('front.layout')
 @section('content')
-    <div id="give_form" class="general_form">
+    <div id="give_form" class="general_form table_default">
         <h1>Hi ! {{$user->name}}</h1>
         <form class="form-horizontal" action="{{ url('/give_shift/'.$user->id.'/'.$month) }}" method="POST" enctype="multipart/form-data" role="form">
 
@@ -60,9 +60,11 @@
                     @endfor
                 @endif
             </div>
+            @if($approved)
             <div class="submit_box">
                 <button type="submit" class="btn btn-success">儲存</button>
             </div>
+            @endif
         </form>
     </div>
 @stop
