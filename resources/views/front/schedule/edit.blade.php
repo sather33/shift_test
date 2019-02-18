@@ -181,7 +181,7 @@
             //set by click
             $(`.table_shop${shopId[i]} .show_time div`).click(function() {
                 if($(this).parent()[0].getElementsByClassName('editing')[0].innerHTML === 'false'){
-                    console.log('good');
+                    // console.log('good');
                     //change to editing
                     $(this).parent()[0].getElementsByClassName('editing')[0].innerHTML = 'true';
 
@@ -202,15 +202,18 @@
                     //color the div
                     var startNum = $(this).parent()[0].getElementsByClassName('active')[0].className.split(' ')[0];
                     var endNum = $(this).attr('class').split(' ')[0];
+                    var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
                     
                     if (startNum < endNum) {
+                        // console.log('small');
                         for (let index = startNum; index <= endNum; index++) {
                             $(this).parent()[0].getElementsByClassName(index)[0].classList.add('active');
                         }
                         //set input
-                        var name = $(this).parent().parent()[0].getElementsByTagName('td')[0].innerHTML;
                         $(`input[name='${name}_ended_${shopId[i]}']`).val(parseInt(endNum)+1);
                     } else if (startNum == endNum) {
+                        // console.log('same');
+                        // console.log(`input[name='${name}_started_${shopId[i]}']`);
                         $(this).removeClass('active');
                         $(`input[name='${name}_started_${shopId[i]}']`).val(null);
                         $(`input[name='${name}_ended_${shopId[i]}']`).val(null);
@@ -227,8 +230,8 @@
                     var value = shopYDefaultInputValue[index].innerHTML.split('-');
                     $(`input[name='${name}_started_${shopId[i]}']`).val(value[0]);
                     $(`input[name='${name}_ended_${shopId[i]}']`).val(value[1]);
-                    console.log($(`input[name='${name}_started_${shopId[i]}']`).val());
-                    console.log($(`input[name='${name}_ended_${shopId[i]}']`).val());
+                    // console.log($(`input[name='${name}_started_${shopId[i]}']`).val());
+                    // console.log($(`input[name='${name}_ended_${shopId[i]}']`).val());
                 }
             }
         }

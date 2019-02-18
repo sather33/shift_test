@@ -172,10 +172,18 @@ class SchedulesController extends Controller
             Schedules::where('shop_id', 'Y')->dates($year, $month, $day)->update([
                 'shift' => serialize($shift_Y)
             ]);
+        } else {
+            Schedules::where('shop_id', 'Y')->dates($year, $month, $day)->update([
+                'shift' => 'off'
+            ]);
         }
         if (!empty($shift_A)) {
             Schedules::where('shop_id', 'A')->dates($year, $month, $day)->update([
                 'shift' => serialize($shift_A)
+            ]);
+        } else {
+            Schedules::where('shop_id', 'A')->dates($year, $month, $day)->update([
+                'shift' => 'off'
             ]);
         }
         // return redirect()->back();
