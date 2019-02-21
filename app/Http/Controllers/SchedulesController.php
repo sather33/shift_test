@@ -15,7 +15,7 @@ class SchedulesController extends Controller
 {
     public function index(Request $request, $shopId)
     {
-        $current_month = $request->choose_month ? : date('n');
+        $current_month = $request->choose_month ?: date('n');
         $year = (date('n') == '12' && $current_month == '1') ? date('Y') + 1 : date('Y');
         $days = date('t', strtotime($year . '-' . $current_month));
         $humans = Members::actived()->get();
@@ -31,7 +31,7 @@ class SchedulesController extends Controller
         }
         $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
-        $anchor = $request->anchor ? : $year . '_' . $current_month . '_' . date("j");
+        $anchor = $request->anchor ?: $year . '_' . $current_month . '_' . date("j");
         return view('front.schedule.index', compact('schedules', 'humans', 'week', 'month', 'current_month', 'anchor', 'shopId'));
     }
 
@@ -47,7 +47,7 @@ class SchedulesController extends Controller
         }
         $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
         $month = Month::find(1)->number;
-        $anchor = $request->anchor ? : null;
+        $anchor = $request->anchor ?: null;
         $admin_show = true;
         return view('front.schedule.unactived', compact('schedules', 'humans', 'week', 'month', 'anchor', 'shopId', 'admin_show'));
     }
@@ -172,20 +172,22 @@ class SchedulesController extends Controller
             Schedules::where('shop_id', 'Y')->dates($year, $month, $day)->update([
                 'shift' => serialize($shift_Y)
             ]);
-        } else {
-            Schedules::where('shop_id', 'Y')->dates($year, $month, $day)->update([
-                'shift' => 'off'
-            ]);
         }
+        // else {
+        //     Schedules::where('shop_id', 'Y')->dates($year, $month, $day)->update([
+        //         'shift' => 'off'
+        //     ]);
+        // }
         if (!empty($shift_A)) {
             Schedules::where('shop_id', 'A')->dates($year, $month, $day)->update([
                 'shift' => serialize($shift_A)
             ]);
-        } else {
-            Schedules::where('shop_id', 'A')->dates($year, $month, $day)->update([
-                'shift' => 'off'
-            ]);
         }
+        // else {
+        //     Schedules::where('shop_id', 'A')->dates($year, $month, $day)->update([
+        //         'shift' => 'off'
+        //     ]);
+        // }
         // return redirect()->back();
         if ($back === 'Y' || $back === 'A') {
             return redirect('/' . $shopId . '/schedules_week/' . $year . '/' . $month);
