@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('/schedule/{year}/{month}/{day}/edit', 'SchedulesController@edit');
     Route::get('/schedule/{year}/{month}/{day}/edit/{back}', 'SchedulesController@edit');
     Route::post('/schedule/{year}/{month}/{day}/{back}', 'SchedulesController@update');
+    Route::post('/schedule/day_off/{year}/{month}/{day}/{back}', 'SchedulesController@day_off');
     Route::get('/logout', 'HomeController@logout');
     Route::post('/schedules/check', 'SchedulesController@check');
     Route::post('/calculate_time', 'SchedulesController@calculate_time');

@@ -260,4 +260,22 @@ class SchedulesController extends Controller
         $excel = Excel::download(new ScheduleExport($request), 'LBC' . $request->year . '年' . $request->month . '月班表.xlsx');
         return $excel;
     }
+
+    public function day_off($year, $month, $day, $back)
+    {
+        $shopId = ($back == 'Y' || $back === 'unpublishY' || $back === 'normalY') ? 'Y' : 'A';
+        Schedules::where('shop_id', $shopId)->dates($year, $month, $day)->update([
+            'shift' => 'off'
+        ]);
+        if ($back === 'Y' || $back === 'A') {
+            return redirect('/' . $shopId . '/schedules_week/' . $year . '/' . $month);
+        } elseif ($back === 'unpublishY') {
+            return redirect('/Y/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        } elseif ($back === 'unpublishA') {
+            return redirect('/A/un_schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        } elseif ($back === 'normalY') {
+            return redirect('/Y/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+        }
+        return redirect('/A/schedules?choose_month=' . $month . '&anchor=' . $year . '_' . $month . '_' . $day);
+    }
 }

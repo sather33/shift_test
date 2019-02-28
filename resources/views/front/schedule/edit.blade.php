@@ -20,7 +20,10 @@
                     <thead>
                         <tr>
                             <th class="name">
-                                {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day.'/edit') }}">儲存</a> --}}
+                                <form action="{{ url('/schedule/day_off/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+                                    {!! csrf_field() !!}
+                                    <input type="submit" value="店休">
+                                </form>
                             </th>
                             <th class="time">
                                 <strong>{{$schedule_Y->year}}/{{$schedule_Y->month}}/{{$schedule_Y->day}} {{$week[$schedule_Y->week_id]}}</strong>
@@ -69,7 +72,10 @@
                     <thead>
                         <tr>
                             <th class="name">
-                                {{-- <a class="btn btn-warning" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit') }}">儲存</a> --}}
+                                <form action="{{ url('/schedule/day_off/'.$schedule_A->year.'/'.$schedule_A->month.'/'.$schedule_A->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+                                    {!! csrf_field() !!}
+                                    <input type="submit" value="店休">
+                                </form>
                             </th>
                             <th class="time">
                                 <strong>{{$schedule_A->year}}/{{$schedule_A->month}}/{{$schedule_A->day}} {{$week[$schedule_A->week_id]}}</strong>
@@ -152,23 +158,31 @@
         <div>
             @if(!!$schedule_Y)
                 <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+                    {!! csrf_field() !!}
+                    <div>
+                        @foreach ($humans as $human)
+                        <div>
+                            <input type="text" name='{{$human->name}}_started_Y' hidden>
+                            <input type="text" name='{{$human->name}}_ended_Y' hidden>
+                        </div>
+                        @endforeach
+                    </div>
+                    <input type="submit" value="儲存">
+                </form>
             @else
                 <form action="{{ url('/schedule/'.$schedule_A->year.'/'.$schedule_A->month.'/'.$schedule_A->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
-            @endif
-        
-                {!! csrf_field() !!}
-                <div>
-                    @foreach ($humans as $human)
+                    {!! csrf_field() !!}
                     <div>
-                        <input type="text" name='{{$human->name}}_started_Y' hidden>
-                        <input type="text" name='{{$human->name}}_ended_Y' hidden>
-                        <input type="text" name='{{$human->name}}_started_A' hidden>
-                        <input type="text" name='{{$human->name}}_ended_A' hidden>
+                        @foreach ($humans as $human)
+                        <div>
+                            <input type="text" name='{{$human->name}}_started_A' hidden>
+                            <input type="text" name='{{$human->name}}_ended_A' hidden>
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
-                </div>
-                <input type="submit" value="儲存">
-            </form>
+                    <input type="submit" value="儲存">
+                </form>
+            @endif
         </div>
     </div>
 </div>

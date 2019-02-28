@@ -27,7 +27,7 @@
             @endif
             @foreach($schedules as $schedule)
             <div class="per_day">
-                <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit'.'/'.$shopId) }}">
+                <a class="" href="{{ url('/schedule/'.$schedule->year.'/'.$schedule->month.'/'.$schedule->day.'/edit/'.$shopId) }}">
                     <p>{{$schedule->day}}</p>
                 </a>
                 @foreach ($schedule->shift as $shift)
