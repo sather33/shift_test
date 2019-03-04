@@ -158,10 +158,15 @@
         <div>
             @if(!!$schedule_Y)
                 <form action="{{ url('/schedule/'.$schedule_Y->year.'/'.$schedule_Y->month.'/'.$schedule_Y->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+            @else
+                <form action="{{ url('/schedule/'.$schedule_A->year.'/'.$schedule_A->month.'/'.$schedule_A->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
+            @endif  
                     {!! csrf_field() !!}
                     <div>
                         @foreach ($humans as $human)
                         <div>
+                            <input type="text" name='{{$human->name}}_started_A' hidden>
+                            <input type="text" name='{{$human->name}}_ended_A' hidden>
                             <input type="text" name='{{$human->name}}_started_Y' hidden>
                             <input type="text" name='{{$human->name}}_ended_Y' hidden>
                         </div>
@@ -169,20 +174,6 @@
                     </div>
                     <input type="submit" value="儲存">
                 </form>
-            @else
-                <form action="{{ url('/schedule/'.$schedule_A->year.'/'.$schedule_A->month.'/'.$schedule_A->day).'/'.$back }}" method="POST" enctype="multipart/form-data" role="form">
-                    {!! csrf_field() !!}
-                    <div>
-                        @foreach ($humans as $human)
-                        <div>
-                            <input type="text" name='{{$human->name}}_started_A' hidden>
-                            <input type="text" name='{{$human->name}}_ended_A' hidden>
-                        </div>
-                        @endforeach
-                    </div>
-                    <input type="submit" value="儲存">
-                </form>
-            @endif
         </div>
     </div>
 </div>
